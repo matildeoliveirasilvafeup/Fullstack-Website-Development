@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>DROPLAWI</title>
+  <style>
+    body {
+      margin: 0;
+    }
+
+    /* MARQUEE - faixa preta com texto em movimento */
+    .marquee-bar {
+      width: 100%;
+      height: 35px;
+      background-color: #000;
+      color: white;
+      overflow: hidden;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 900;
+      margin: 0;
+      padding: 0;
+    }
+
+    .marquee-content {
+      display: flex;
+      white-space: nowrap;
+      gap: 60px;
+      animation: scroll-left 50s linear infinite;
+    }
+
+    .marquee-content span {
+      padding: 0 18px;
+    }
+
+    @keyframes scroll-left {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    /* Título BEST SELLERS - azul, sombra preta, tamanho 45px e fonte Arial */
+    .section-title {
+      font-family: Arial, sans-serif;
+      font-weight: 400;
+      font-size: 45px;
+      padding: 0px 10px;
+      text-align: center;
+      color: #006AFF;
+      text-shadow:
+        -1px -1px 0 #000,
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000;
+      margin: 15px 0 20px; /* margem maior para não colar à marquee */
+      text-transform: none;
+      position: relative;
+    }
+
+    .product-slider-wrapper {
+      position: relative;
+    }
+
+    .arrow-btn {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .arrow-btn {
+        display: block;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: white;
+        border: none;
+        font-size: 2rem;
+        z-index: 1;
+        cursor: pointer;
+        opacity: 0.8;
+        padding: 0.4rem 0.6rem;
+        border-radius: 50%;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        user-select: none;
+      }
+      .arrow-left {
+        left: 4px;
+      }
+      .arrow-right {
+        right: 4px;
+      }
+    }
+
+    .product-slider {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 0;
+    }
+
+    @media (max-width: 768px) {
+      .product-slider {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+      }
+      .product-slider::-webkit-scrollbar {
+        display: none;
+      }
+      .product-slider {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .product-card {
+        scroll-snap-align: start;
+      }
+    }
+
+    :root {
+      --font-heading-family: "Futura", sans-serif;
+      --font-heading-weight: 600;
+      --product-card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      --product-card-corner-radius: 0.8rem;
+      --button-blue: #006AFF;
+      --grey-background: #f5f5f5;
+      --discount-red: #e60023;
+    }
+
+    .product-card {
+      width: 300px;
+      border-radius: var(--product-card-corner-radius);
+      overflow: hidden;
+      box-shadow: var(--product-card-shadow);
+      background-color: white;
+      font-family: var(--font-heading-family);
+      position: relative;
+      transition: transform 0.3s ease;
+      flex: 0 0 auto;
+    }
+
+    .product-card:hover {
+      transform: scale(1.03);
+    }
+
+    .product-image-container img {
+      width: 100%;
+      display: block;
+    }
+
+    .badge-best-seller {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #007bff;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: bold;
+      padding: 6px 10px;
+      border-radius: 50px;
+      z-index: 2;
+    }
+
+    .product-info {
+      background: var(--grey-background);
+      padding: 16px;
+      text-align: center;
+    }
+
+    .product-title {
+      font-weight: var(--font-heading-weight);
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .product-stars {
+      color: #f5c518;
+      font-size: 0.9rem;
+    }
+
+    .product-reviews {
+      font-size: 0.85rem;
+      color: #333;
+    }
+
+    .price-section {
+      margin-top: 8px;
+      font-size: 0.95rem;
+    }
+
+    .old-price {
+      text-decoration: line-through;
+      color: gray;
+      margin-right: 6px;
+    }
+
+    .new-price {
+      color: var(--discount-red);
+      font-weight: bold;
+    }
+
+    .choose-options-button {
+      margin-top: 16px;
+      background-color: var(--button-blue);
+      color: white;
+      border: none;
+      padding: 12px;
+      font-weight: bold;
+      font-size: 0.95rem;
+      border-radius: 8px;
+      width: 100%;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background-color 0.3s ease;
+    }
+
+    .choose-options-button:hover {
+      background-color: #004fcf;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MARQUEE sobreposto -->
+  <div class="marquee-bar" id="marqueeBar">
+    <div class="marquee-content">
+      <span>💰 BEM VINDO à DROPLAWI 💰</span>
+      <span>⭐ SOMOS OS FORNECEDORES QUE ESTÁS À PROCURA ⭐</span>
+      <span>🇵🇹 ENTREGAS RÁPIDAS EM PORTUGAL 🇵🇹</span>
+      <span>🚚 ENVIO GRÁTIS EM PORTES ACIMA DE 200€ 🚚</span>
+      <span>🌍 QUALIDADE E CONFIANÇA DESDE 2025 🌍</span>
+      <span>💰 BEM VINDO à DROPLAWI 💰</span>
+      <span>⭐ SOMOS OS FORNECEDORES QUE ESTÁS À PROCURA ⭐</span>
+      <span>🇵🇹 ENTREGAS RÁPIDAS EM PORTUGAL 🇵🇹</span>
+      <span>🚚 ENVIO GRÁTIS EM PORTES ACIMA DE 200€ 🚚</span>
+      <span>🌍 QUALIDADE E CONFIANÇA DESDE 2025 🌍</span>
+    </div>
+  </div>
+
+  <!-- Conteúdo da página -->
+  <h2 class="section-title">BEST SELLERS</h2>
+
+  <div class="product-slider-wrapper">
+    <button class="arrow-btn arrow-left" onclick="scrollProductSlider(-1)" aria-label="Scroll Left">‹</button>
+
+    <div class="product-slider" id="product-slider">
+      {% assign handles = "mix-carhartt-dickies-calcas,polos-ralph-lauren,vintage-sweaters,polo-ralph-tee" | split: "," %}
+      {% for handle in handles %}
+        {% assign product = all_products[handle] %}
+        {% assign base_price = product.price %}
+        {% assign price_with_markup = base_price | times: 1.05 | round %}
+
+        {% assign reviews = 73 %}
+        {% if handle contains "polos-ralph-lauren" %}
+          {% assign reviews = 62 %}
+        {% elsif handle contains "vintage-sweaters" %}
+          {% assign reviews = 48 %}
+        {% elsif handle contains "polo-ralph-tee" %}
+          {% assign reviews = 55 %}
+        {% endif %}
+
+        <div class="product-card">
+          <div class="product-image-container">
+            <img src="{{ product.featured_image | img_url: '800x' }}" alt="{{ product.title }}" />
+            {% if product.tags contains "bestseller" %}
+              <div class="badge-best-seller">BEST SELLER</div>
+            {% endif %}
+          </div>
+
+          <div class="product-info">
+            <div class="product-title">{{ product.title }}</div>
+            <div class="product-stars">★★★★★ <span class="product-reviews">({{ reviews }})</span></div>
+            <div class="price-section">
+              <span class="old-price">{{ price_with_markup | money }}</span>
+              <span class="new-price">{{ base_price | money }}</span>
+            </div>
+            <a href="{{ product.url }}" class="choose-options-button">ESCOLHE A OPÇÃO</a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <button class="arrow-btn arrow-right" onclick="scrollProductSlider(1)" aria-label="Scroll Right">›</button>
+  </div>
+
+  <script>
+    function scrollProductSlider(direction) {
+      const slider = document.getElementById("product-slider");
+      const scrollAmount = slider.offsetWidth * 0.8;
+      slider.scrollBy({
+        left: direction * scrollAmount,
+        behavior: "smooth"
+      });
+    }
+  </script>
+  
+</body>
+</html>

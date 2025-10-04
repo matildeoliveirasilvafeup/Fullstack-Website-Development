@@ -1,0 +1,433 @@
+<div style="max-width: 1200px; margin: 0 auto; padding: 40px 15px; font-family: sans-serif;">
+  <div class="product-flex-wrapper" style="display: flex; flex-wrap: wrap; gap: 40px; justify-content: space-between;">
+
+    <div class="product-media-column" style="flex: 1 1 48%; max-width: 48%; position: relative;">
+      <div class="product-main-media-area" style="position: relative; text-align: center;">
+        <button onclick="prevMedia()" style="position: absolute; left: -30px; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 48px; color: #1e3a8a; cursor: pointer; z-index: 1;">‹</button>
+
+        <div id="main-product-media-container" style="width: 100%; aspect-ratio: 1 / 1; border-radius: 12px; border: 4px solid #1e3a8a; transition: all 0.3s ease; box-sizing: border-box; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+          </div>
+
+        <button onclick="nextMedia()" style="position: absolute; right: -30px; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 48px; color: #1e3a8a; cursor: pointer; z-index: 1;">›</button>
+
+        <div id="media-counter" style="position: absolute; bottom: 10px; right: 12px; background-color: rgba(255, 255, 255, 0.8); padding: 4px 10px; border-radius: 5px; font-weight: bold; font-size: 14px; z-index: 0;">1 / X</div>
+      </div>
+
+      <div style="display: flex; gap: 10px; margin-top: 10px; justify-content: center;">
+        {% assign media_index = 0 %}
+        {% for media in product.media %}
+          {% if media.media_type == "image" %}
+            <img class="thumbnail" src="{{ media | image_url: width: 800 }}" data-media-type="image" data-index="{{ media_index }}" alt="{{ media.alt | escape }}">
+          {% elsif media.media_type == "video" %}
+            <video class="thumbnail" muted playsinline poster="{{ media | image_url: width: 200 }}" data-media-type="video" data-index="{{ media_index }}" data-video-url="{{ media.sources[0].url }}" alt="{{ media.alt | escape }}"></video>
+          {% endif %}
+          {% assign media_index = media_index | plus: 1 %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="product-info-column" style="flex: 1 1 48%; max-width: 48%; padding: 10px;">
+      <h1 style="font-size: 32px; font-weight: 700; margin-top: -20px; margin-bottom: 10px;">{{ product.title }}</h1>
+
+      <form method="post" action="/cart/add">
+        <input type="hidden" name="id" id="variant-id">
+
+        <label for="bundle-select" style="font-weight: bold;">Escolher quantidade:</label><br>
+        <select id="bundle-select" style="width: 100%; padding: 18px; font-size: 20px; margin: 15px 0; border-radius: 6px; border: 1px solid #ccc;">
+          {% for variant in product.variants %}
+            {% assign qtd = variant.title | split: " / " | last | split: " " | first | plus: 0 %}
+            {% if qtd > 0 and variant.available %}
+              <option 
+                value="{{ qtd }}" 
+                data-price="{{ variant.price | divided_by: 100.0 }}" 
+                data-variant="{{ variant.id }}">
+                {{ variant.title }} – €{{ variant.price | divided_by: 100.0 | round: 2 }}
+              </option>
+            {% endif %}
+          {% endfor %}
+        </select>
+
+        <p style="font-size: 24px; font-weight: bold;">Total: <span id="bundle-price">€0.00</span></p>
+
+        <button type="submit" style="background-color: #facc15; color: #000; padding: 18px 32px; font-size: 18px; border-radius: 12px; font-weight: bold; text-transform: uppercase; width: 100%; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+          Adicionar ao carrinho
+        </button>
+      </form>
+
+      <ul style="list-style: none; padding-left: 0; font-size: 16px; line-height: 1.6; margin-top: 20px;">
+        <li>✅ Peças revisadas 1 a 1 pelos nossos especialistas</li>
+        <li>✅ Ganhe até 150% por peça</li>
+        <li>✅ Ideal para revenda na Vinted</li>
+        <li>✅ Envio rápido em toda Europa</li>
+      </ul>
+
+      <div style="margin-top: 30px;">
+        {% assign sections = 
+          "📦 DESCRIÇÃO DO PRODUTO: Neste combo vais encontrar 4 calças Carhartt, 1 t-shirt Vintage, 1 sweat Vintage, 2 casacos Carhartt rework, 1 casaco Dickies, 1 sweat Dickies. As peças serão 80% Grade A e 20% Grade B.|🚚 ENTREGA:Entrega rápida, até 7 dias úteis nas suas mãos.|🧥 ARTIGOS: Oferecemos produtos em Grau A, onde os itens estão em perfeitas condições e Grau B, artigos que podem apresentar pequenas imperfeições como uma ligeira mancha ou um pequeno buraco.|ℹ️ INFORMAÇÕES ADICIONAIS:Imagens são ilustrativas dos nossos produtos."
+          | split: "|" %}
+        {% for section in sections %}
+          {% assign pair = section | split: ":" %}
+          <div class="accordion">
+            <div class="accordion-title">
+              <span>{{ pair[0] }}</span>
+              <span class="accordion-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20"><path d="M7 10l5 5 5-5z"/></svg>
+              </span>
+            </div>
+            <div class="accordion-content">
+              {{ pair[1] }}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <div style="width: 100%; background-color: #fef3c7; padding: 40px; border-radius: 16px; margin-top: 40px;">
+    <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
+      <span style="background-color: #fde047; color: #000; padding: 6px 16px; border-radius: 9999px; font-weight: bold; font-size: 14px;">🚀 3X SUAS VENDAS NA VINTED</span>
+      <span style="background-color: #60a5fa; color: white; padding: 6px 16px; border-radius: 9999px; font-weight: bold; font-size: 14px;">🔥 100% GRÁTIS</span>
+    </div>
+
+    <h3 style="font-size: 22px; font-weight: bold; margin-bottom: 10px;">Torna-te num Vendedor Profissional Vinted GRATUITAMENTE e gere mais de €1.200 em menos de 30 dias.</h3>
+    <p style="font-size: 16px; margin-bottom: 20px;">
+      Com a compra de qualquer pacote de roupas do site, terás acesso gratuito ao treinamento da <strong>Vinted Academy 2.0</strong>.
+    </p>
+
+    <p style="font-size: 16px; margin-bottom: 10px;">Aprende a:</p>
+    <ul style="font-size: 16px; line-height: 1.6; padding-left: 20px;">
+      <li>✅ Otimiza o teu perfil na Vinted</li>
+      <li>✅ Comprar mercadorias - Fornecedores</li>
+      <li>✅ Encontra produtos vencedores</li>
+      <li>✅ Tira fotos vencedoras</li>
+      <li>✅ Escreve descrições vencedoras</li>
+      <li>✅ Estabelece preços vencedores</li>
+      <li>✅ <strong>BÔNUS:</strong> Aprende as Técnicas Secretas</li>
+    </ul>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script>
+  // --- Variáveis globais para a Galeria de Mídia ---
+  let mediaThumbnails;
+  let mainMediaContainer;
+  let mediaCounter;
+  let currentIndex = 0;
+
+  // --- LÓGICA DA GALERIA DE MÍDIA (IMAGENS E VÍDEOS) ---
+  // Funções de galeria (precisam ser globais para o onclick no HTML)
+  function updateMainMedia(index) {
+    if (!mediaThumbnails || mediaThumbnails.length === 0 || !mainMediaContainer || !mediaCounter) {
+      console.warn("Elementos da galeria não inicializados. Não é possível atualizar a mídia.");
+      return;
+    }
+
+    currentIndex = index;
+
+    // Limpa o conteúdo atual do container principal
+    mainMediaContainer.innerHTML = '';
+
+    const selectedThumbnail = mediaThumbnails[index];
+    if (selectedThumbnail) {
+      const mediaType = selectedThumbnail.dataset.mediaType;
+
+      if (mediaType === 'image') {
+        const img = document.createElement('img');
+        img.src = selectedThumbnail.src;
+        img.alt = selectedThumbnail.alt || 'Imagem do produto';
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'cover';
+        img.style.borderRadius = '8px';
+        mainMediaContainer.appendChild(img);
+      } else if (mediaType === 'video') {
+        const video = document.createElement('video');
+        video.autoplay = true;
+        video.loop = true;
+        video.muted = true;
+        video.playsInline = true;
+        video.controls = true; // Manter os controles para fallback
+
+        // Use o atributo data-video-url para o vídeo principal
+        const videoUrl = selectedThumbnail.dataset.videoUrl;
+        if (selectedThumbnail.poster) {
+          video.poster = selectedThumbnail.poster;
+        }
+
+        video.style.width = '100%';
+        video.style.height = '100%';
+        video.style.objectFit = 'cover';
+        video.style.borderRadius = '8px';
+        mainMediaContainer.appendChild(video);
+
+        // Tenta usar HLS.js para reproduzir o vídeo se for um .m3u8
+        if (typeof Hls !== 'undefined' && Hls.isSupported() && videoUrl && videoUrl.includes('.m3u8')) {
+          const hls = new Hls();
+          hls.loadSource(videoUrl);
+          hls.attachMedia(video);
+          hls.on(Hls.Events.MANIFEST_PARSED, function() {
+            video.play().catch(e => console.error("Video play was blocked (HLS.js):", e));
+          });
+          hls.on(Hls.Events.ERROR, function(event, data) {
+            console.error("HLS.js error:", data);
+            // Fallback para player nativo se HLS.js falhar, mas é improvável que funcione se o URL for m3u8
+            video.src = videoUrl;
+            video.play().catch(e => console.error("Fallback video play was blocked (HLS.js error):", e));
+          });
+        } else if (videoUrl && (video.canPlayType('application/vnd.apple.mpegurl') || videoUrl.includes('.mp4'))) {
+          // Navegadores que suportam HLS nativamente (Safari em iOS/macOS) ou vídeos MP4 diretos
+          video.src = videoUrl;
+          video.addEventListener('loadedmetadata', function() {
+            video.play().catch(e => console.error("Native video play was blocked:", e));
+          });
+        } else {
+          console.error("Nenhum suporte para HLS/vídeo direto neste navegador ou formato não suportado.");
+          // Opcional: Adicionar uma mensagem para o utilizador ou fallback para uma imagem estática/poster
+        }
+      }
+    }
+
+    // Atualiza a classe 'active' para as miniaturas
+    mediaThumbnails.forEach((thumb, i) => {
+      thumb.classList.toggle('active', i === index);
+    });
+
+    // Atualiza o contador
+    mediaCounter.textContent = `${index + 1} / ${mediaThumbnails.length}`;
+  }
+
+  // Funções de navegação (anterior/próximo)
+  function prevMedia() {
+    if (mediaThumbnails && mediaThumbnails.length > 0) {
+      const newIndex = (currentIndex - 1 + mediaThumbnails.length) % mediaThumbnails.length;
+      updateMainMedia(newIndex);
+    }
+  }
+
+  function nextMedia() {
+    if (mediaThumbnails && mediaThumbnails.length > 0) {
+      const newIndex = (currentIndex + 1) % mediaThumbnails.length;
+      updateMainMedia(newIndex);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    mediaThumbnails = document.querySelectorAll('.thumbnail'); // Todas as miniaturas (imagens e vídeos)
+    mainMediaContainer = document.getElementById('main-product-media-container'); // O novo container para a mídia principal
+    mediaCounter = document.getElementById('media-counter'); // O contador de mídia
+
+    // Adiciona event listeners para cliques nas miniaturas
+    if (mediaThumbnails.length > 0 && mainMediaContainer && mediaCounter) {
+      mediaThumbnails.forEach((thumb, index) => {
+        thumb.addEventListener('click', () => updateMainMedia(index));
+      });
+      updateMainMedia(0); // Inicializa a galeria com a primeira mídia
+    } else {
+        console.warn("Galeria não inicializada: Elementos de mídia ou contador não encontrados.");
+    }
+
+    // Swipe mobile no media principal
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    if (mainMediaContainer) {
+      mainMediaContainer.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      });
+
+      mainMediaContainer.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleGesture();
+      });
+
+      function handleGesture() {
+        if (touchEndX < touchStartX - 50) nextMedia();
+        if (touchEndX > touchStartX + 50) prevMedia();
+      }
+    }
+
+    // Zoom modal (adaptado para imagens apenas)
+    const zoomModal = document.createElement('div');
+    zoomModal.style.position = 'fixed';
+    zoomModal.style.top = 0;
+    zoomModal.style.left = 0;
+    zoomModal.style.width = '100vw';
+    zoomModal.style.height = '100vh';
+    zoomModal.style.background = 'rgba(0, 0, 0, 0.85)';
+    zoomModal.style.display = 'none';
+    zoomModal.style.justifyContent = 'center';
+    zoomModal.style.alignItems = 'center';
+    zoomModal.style.zIndex = 1000;
+    zoomModal.innerHTML = `<img src="" id="zoom-image" style="max-width: 90%; max-height: 90%; border-radius: 12px;">`;
+    document.body.appendChild(zoomModal);
+
+    if (mainMediaContainer) {
+      mainMediaContainer.addEventListener('click', () => {
+        // Abre o modal de zoom APENAS se o media atual for uma imagem
+        const currentMediaElement = mainMediaContainer.querySelector('img');
+        if (currentMediaElement) {
+          const zoomImg = document.getElementById('zoom-image');
+          zoomImg.src = currentMediaElement.src;
+          zoomModal.style.display = 'flex';
+        }
+      });
+    }
+
+    zoomModal.addEventListener('click', () => {
+      zoomModal.style.display = 'none';
+    });
+
+    // --- LÓGICA DO ACORDEÃO ---
+    document.querySelectorAll('.accordion').forEach(accordion => {
+      accordion.addEventListener('click', function () {
+        const content = this.querySelector('.accordion-content');
+        const icon = this.querySelector('.accordion-icon svg');
+        if (this.classList.contains('open')) {
+          this.classList.remove('open');
+          content.style.maxHeight = null;
+          icon.style.transform = 'rotate(0deg)';
+        } else {
+          this.classList.add('open');
+          content.style.maxHeight = content.scrollHeight + "px";
+          icon.style.transform = 'rotate(180deg)';
+        }
+      });
+    });
+
+    // --- LÓGICA DE ATUALIZAÇÃO DE PREÇO DO BUNDLE ---
+    const bundleSelect = document.getElementById('bundle-select');
+    const bundlePrice = document.getElementById('bundle-price');
+    const variantId = document.getElementById('variant-id');
+
+    const updatePrice = () => {
+      const selected = bundleSelect.options[bundleSelect.selectedIndex];
+      if (selected && !selected.disabled) {
+        // Agora o data-price já é o preço TOTAL da variante, não por unidade.
+        const total = parseFloat(selected.dataset.price);
+        bundlePrice.textContent = `€${total.toFixed(2)}`;
+        variantId.value = selected.dataset.variant;
+      } else {
+        bundlePrice.textContent = "€0.00";
+        variantId.value = "";
+      }
+    };
+
+    if (bundleSelect) {
+      bundleSelect.addEventListener('change', updatePrice);
+      updatePrice(); // Atualiza o preço inicial ao carregar a página
+    }
+  }); // Fim do DOMContentLoaded
+</script>
+
+<style>
+  /* Estilos para as miniaturas da galeria */
+  .thumbnail {
+    width: 70px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border: 2px solid #1e3a8a;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: border 0.2s ease;
+  }
+
+  .thumbnail.active {
+    border: 4px solid #1e3a8a;
+  }
+
+  /* Estilos para o acordeão */
+  .accordion {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-top: 20px;
+    background-color: #fafafa;
+    cursor: pointer;
+    padding: 15px 20px;
+    transition: background-color 0.2s ease;
+  }
+
+  .accordion.open {
+    background-color: #fffde0;
+    border-color: #facc15;
+  }
+
+  .accordion-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    font-size: 17px;
+  }
+
+  .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    font-size: 16px;
+    line-height: 1.6;
+    padding-left: 5px;
+  }
+
+  .accordion-icon svg {
+    transition: transform 0.3s ease;
+    fill: black;
+  }
+
+  /* Media Queries para Responsividade */
+  @media (max-width: 1024px) {
+    /* Alinha todo o conteúdo no centro */
+    .product-flex-wrapper {
+      justify-content: center !important;
+      flex-direction: column; /* Força o empilhamento em colunas */
+    }
+
+    /* Faz as colunas ficarem em bloco, uma em cima da outra */
+    .product-flex-wrapper > div {
+      max-width: 100% !important;
+      flex: 1 1 100% !important;
+    }
+
+    /* Ajuste para botões de navegação da galeria no mobile */
+    .product-media-column button {
+      position: static !important; /* Remove posicionamento absoluto */
+      transform: none !important;
+      font-size: 32px; /* Reduz o tamanho */
+      padding: 5px;
+      margin: 0 10px;
+    }
+
+    /* O container da imagem principal e botões */
+    .product-main-media-area {
+      display: flex;
+      flex-wrap: wrap; /* Permite que os botões se ajustem */
+      justify-content: center;
+      align-items: center;
+      position: relative; /* Garante que o contador absoluto se posicione em relação a este div */
+    }
+
+    .product-main-media-area > button:first-child { /* Botão 'anterior' */
+      order: 1; /* Posiciona à esquerda da imagem */
+    }
+    #main-product-media-container {
+      order: 2; /* A imagem fica no centro */
+      flex-grow: 1; /* Permite que ocupe o espaço disponível */
+      margin: 0 10px; /* Adiciona algum espaçamento lateral */
+    }
+    .product-main-media-area > button:last-of-type { /* Botão 'próximo' */
+      order: 3; /* Posiciona à direita da imagem */
+    }
+    
+    /* Contador de mídia no mobile */
+    #media-counter {
+      position: absolute; /* Mantenha absoluto para a posição no canto da imagem */
+      bottom: 10px;
+      right: 12px;
+      z-index: 0; /* Valor de z-index muito alto para garantir que fique sempre por cima */
+      
+      background-color: rgba(255, 255, 255, 0.8); /* Mantém o fundo */
+      padding: 4px 10px; /* Mantém o padding */
+      font-size: 14px; /* Mantém o tamanho original */
+    }
+  }
+</style>

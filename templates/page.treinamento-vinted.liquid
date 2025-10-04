@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vinted Academy - Layout Duas Colunas</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+ body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background: #f8f8f8;
+  color: #222;
+  line-height: 1.6;
+}
+
+  a {
+    color: #f6b91b;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  .container {
+    max-width: 1100px;
+    margin: 40px auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 6px 18px rgb(246 185 27 / 0.15);
+    display: flex;
+    gap: 40px;
+    padding: 40px;
+  }
+  /* Esquerda: galeria + imagem principal */
+  .left-column {
+    flex: 0 0 45%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .main-image {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 6px 15px rgb(246 185 27 / 0.35);
+    object-fit: contain;
+    max-height: 480px;
+  }
+  .gallery {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+  }
+  .gallery img {
+    width: 80px;
+    height: 80px;
+    border-radius: 14px;
+    cursor: pointer;
+    border: 3px solid transparent;
+    object-fit: cover;
+    flex-shrink: 0;
+    transition: border-color 0.3s ease;
+  }
+  .gallery img.active {
+    border-color: #f6b91b;
+  }
+
+  /* Direita: título, botão, preço, accordions, e conteúdo adicional */
+  .right-column {
+    flex: 0 0 55%;
+    display: flex;
+    flex-direction: column;
+  }
+  .product-title {
+    font-weight: 900;
+    font-size: 3rem;
+    margin: 0 0 12px 0;
+    color: #222;
+  }
+  .product-subtitle {
+    font-weight: 400;
+    font-size: 1.3rem;
+    margin: 0 0 36px 0;
+    color: #555;
+  }
+  .btn-primary {
+    background-color: #f6b91b;
+    color: #222;
+    border: none;
+    border-radius: 16px;
+    font-size: 1.4rem;
+    padding: 18px 0;
+    cursor: pointer;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    box-shadow: 0 6px 18px rgb(246 185 27 / 0.45);
+    margin-bottom: 32px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+  .btn-primary:hover {
+    background-color: #d8a917;
+  }
+  .price-box {
+    background: #fff3cd;
+    color: #856404;
+    padding: 22px 28px;
+    border-radius: 16px;
+    font-size: 1.9rem;
+    font-weight: 700;
+    margin-bottom: 50px;
+    text-align: center;
+    box-shadow: 0 6px 15px rgb(246 185 27 / 0.35);
+  }
+
+  /* Accordion */
+  .accordion {
+  border-top: 1px solid #eee;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto 40px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.accordion-item {
+  width: 100%;
+  max-width: 700px; /* ou outro valor que aches adequado */
+}
+
+  .accordion-header {
+    background: #fff8e1;
+    cursor: pointer;
+    padding: 20px 24px;
+    font-weight: 700;
+    font-size: 1.3rem;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #a67c00;
+    letter-spacing: 0.03em;
+  }
+  .accordion-header:hover {
+    background: #fff2c2;
+  }
+  .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 24px;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    background: #fffde7;
+    color: #5c5c5c;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  .accordion-content.open {
+    padding: 20px 24px;
+    max-height: 700px;
+  }
+  .accordion-arrow {
+    transition: transform 0.3s ease;
+    font-size: 1.7rem;
+    color: #f6b91b;
+  }
+  .accordion-arrow.open {
+    transform: rotate(90deg);
+  }
+
+  /* Secções adicionais para preencher até às reviews */
+  .product-description {
+    margin-top: 2rem; /* ou 20px, ou qualquer valor que preferires */
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.5;
+    margin-bottom: 40px;
+  }
+  .additional-info {
+    background: #fff8e1;
+    border-radius: 16px;
+    padding: 30px 24px;
+    color: #6f5400;
+    font-size: 1.15rem;
+    box-shadow: 0 4px 12px rgb(246 185 27 / 0.2);
+    margin-bottom: 40px;
+  }
+  .additional-info h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+
+  /* Responsividade */
+  @media (max-width: 920px) {
+    .container {
+      flex-direction: column;
+      padding: 20px;
+      margin: 20px auto;
+    }
+    .left-column, .right-column {
+      flex: none;
+      width: 100%;
+    }
+    .steps {
+      flex-direction: column;
+      gap: 20px;
+    }
+    .step {
+      align-items: center;
+      text-align: center;
+    }
+    .step-text {
+      color: #444;
+    }
+  }
+</style>
+</head>
+<body>
+<section style="max-width: 1200px; margin: 60px auto; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start; font-family: 'Montserrat', sans-serif; padding: 0 20px;">
+
+  <!-- Imagem à esquerda -->
+  <div style="flex: 1 1 400px;">
+    <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/droplawitreinamentovinted.png?v=1751155573" style="width: 100%; border-radius: 16px; box-shadow: 0 8px 20px rgba(0,0,0,0.1);">
+  </div>
+
+  <!-- Conteúdo à direita -->
+  <div style="flex: 1 1 400px;">
+    <h2 style="font-size: 2.5rem; color: #111; margin-bottom: 30px;">FORMAÇÃO<br>VINTED ACADEMY</h2>
+
+    <!-- Lista de vantagens -->
+    <ul style="list-style: none; padding: 0; margin-bottom: 30px;">
+      <li style="margin-bottom: 16px; font-size: 1.1rem;">
+        ✅ Peças revistas e selecionadas 1 a 1 pelos nossos especialistas
+      </li>
+      <li style="margin-bottom: 16px; font-size: 1.1rem;">
+        ✅ Ganha até <strong>150%</strong> por peça
+      </li>
+      <li style="margin-bottom: 16px; font-size: 1.1rem;">
+        ✅ Ideal para revenda na Vinted
+      </li>
+      <li style="margin-bottom: 16px; font-size: 1.1rem;">
+        ✅ Produtos em tendência e alta procura
+      </li>
+      <li style="margin-bottom: 16px; font-size: 1.1rem;">
+        ✅ Entregas rápidas para toda a Europa
+      </li>
+    </ul>
+
+    <!-- Preço e botão -->
+    <div style="margin-bottom: 20px; font-size: 1.5rem; font-weight: bold; color: #000;">
+      <span style="text-decoration: line-through; color: gray; font-size: 1.2rem;">€79,00</span>
+      <span style="color: #e60023;"> €25,99</span>
+      <span style="background: #ffe07c; color: #111; font-size: 0.9rem; padding: 4px 10px; border-radius: 6px; margin-left: 8px;">Oferta</span>
+    </div>
+
+    <form action="/cart/add" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="id" value="55844514759030">
+    <input type="hidden" name="quantity" value="1">
+    <button type="submit"
+            style="background: #f6b91b; border: none; border-radius: 12px; padding: 18px 0; width: 100%; font-size: 1.2rem; font-weight: bold; color: #111; cursor: pointer; box-shadow: 0 6px 18px rgb(246 185 27 / 0.35); transition: background 0.3s;">
+        Adicionar ao carrinho
+    </button>
+</form>
+  </div>
+</section>
+
+<div class="container">
+
+  <!-- Esquerda -->
+
+
+
+    <!-- Accordion -->
+    <section class="accordion" id="accordion">
+      <div class="accordion-item">
+        <div class="accordion-header">
+          O que inclui o curso?
+          <span class="accordion-arrow">&#9654;</span>
+        </div>
+        <div class="accordion-content">
+          Curso completo por módulos.
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header">
+          Como aceder ao curso?
+          <span class="accordion-arrow">&#9654;</span>
+        </div>
+        <div class="accordion-content">
+          Após a compra, recebes um link.
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header">
+          Garantia de satisfação
+          <span class="accordion-arrow">&#9654;</span>
+        </div>
+        <div class="accordion-content">
+          Tens 30 dias para pedir reembolso.
+        </div>
+      </div>
+    </section>
+
+    <!-- Descrição detalhada do produto -->
+    <section class="product-description">
+      <p>A Vinted Academy foi concebida para ajudar os vendedores a maximizar as suas vendas através de técnicas comprovadas e estratégias eficazes. Com acesso a conteúdos exclusivos, poderás aprender desde o básico da fotografia de produtos até técnicas avançadas de marketing digital.</p>
+      <p>Ideal para se desejas transformar a tua loja numa referência na plataforma, o curso oferece flexibilidade total para que possas aprender ao teu ritmo, onde e quando quiseres.</p>
+    </section>
+
+  </div>
+
+
+<script>
+  // Galeria muda imagem principal
+  const gallery = document.getElementById('gallery');
+  const mainImage = document.getElementById('mainImage');
+
+  gallery.querySelectorAll('img').forEach(img => {
+    img.addEventListener('click', () => {
+      mainImage.src = img.src;
+      gallery.querySelectorAll('img').forEach(i => i.classList.remove('active'));
+      img.classList.add('active');
+    });
+  });
+
+  // Accordion open/close - só 1 aberto de cada vez
+  const accordion = document.getElementById('accordion');
+  accordion.querySelectorAll('.accordion-header').forEach(header => {
+    header.addEventListener('click', () => {
+      const openItem = accordion.querySelector('.accordion-content.open');
+      if (openItem && openItem !== header.nextElementSibling) {
+        openItem.classList.remove('open');
+        openItem.previousElementSibling.querySelector('.accordion-arrow').classList.remove('open');
+      }
+      const content = header.nextElementSibling;
+      const arrow = header.querySelector('.accordion-arrow');
+      if (content.classList.contains('open')) {
+        content.classList.remove('open');
+        arrow.classList.remove('open');
+      } else {
+        content.classList.add('open');
+        arrow.classList.add('open');
+      }
+    });
+  });
+
+  // Botão "Choose an option" só alerta para exemplo
+  document.getElementById('chooseOptionBtn').addEventListener('click', () => {
+    alert('Aqui deverias implementar a seleção de variantes do produto.');
+  });
+  
+</script>
+  <section style="padding: 60px 20px; text-align: center; font-family: 'Montserrat', sans-serif;">
+  <h2 style="font-size: 2rem; margin-bottom: 40px; color: #111;">📦 Que Passos Seguirá o teu Pedido?</h2>
+  <div style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center;">
+    
+    <!-- Passo 1 -->
+    <div style="width: 220px;">
+      <div style="position: relative; border-radius: 16px; overflow: hidden; background: #ffeb3b; padding: 10px;">
+        <div style="position: absolute; top: 8px; left: 8px; background: #000; color: #fff; border-radius: 50%; width: 28px; height: 28px; line-height: 28px; font-weight: bold; z-index: 1;">1</div>
+        <img src="https://europewholesales.com/cdn/shop/files/VINTEDACADEMY2.02-ezgif.com-video-to-gif-converter.gif?v=1743603068" alt="Passo 1" style="width: 100%; border-radius: 8px;">
+      </div>
+      <p style="margin-top: 12px; font-size: 1.05rem;">Realizas o teu pedido de <strong>Roupa Vintage Premium</strong></p>
+    </div>
+
+    <!-- Passo 2 -->
+    <div style="width: 220px;">
+      <div style="position: relative; border-radius: 16px; overflow: hidden; background: #ffeb3b; padding: 10px;">
+        <div style="position: absolute; top: 8px; left: 8px; background: #000; color: #fff; border-radius: 50%; width: 28px; height: 28px; line-height: 28px; font-weight: bold; z-index: 1;">2</div>
+        <img src="https://europewholesales.com/cdn/shop/files/VINTEDACADEMY2.0-ezgif.com-video-to-gif-converter.gif?v=1743603064" alt="Passo 2" style="width: 100%; border-radius: 8px;">
+      </div>
+      <p style="margin-top: 12px; font-size: 1.05rem;">Os nossos <strong>especialistas revisam</strong> a tua encomenda peça a peça.</p>
+    </div>
+
+    <!-- Passo 3 -->
+    <div style="width: 220px;">
+      <div style="position: relative; border-radius: 16px; overflow: hidden; background: #ffeb3b; padding: 10px;">
+        <div style="position: absolute; top: 8px; left: 8px; background: #000; color: #fff; border-radius: 50%; width: 28px; height: 28px; line-height: 28px; font-weight: bold; z-index: 1;">3</div>
+        <img src="https://europewholesales.com/cdn/shop/files/VINTEDACADEMY2.01-ezgif.com-video-to-gif-converter.gif?v=1743603066" alt="Passo 3" style="width: 100%; border-radius: 8px;">
+      </div>
+      <p style="margin-top: 12px; font-size: 1.05rem;">A tua encomenda será enviada em <strong>2-3 dias úteis</strong>.</p>
+    </div>
+
+    <!-- Passo 4 -->
+    <div style="width: 220px;">
+      <div style="position: relative; border-radius: 16px; overflow: hidden; background: #ffeb3b; padding: 10px;">
+        <div style="position: absolute; top: 8px; left: 8px; background: #000; color: #fff; border-radius: 50%; width: 28px; height: 28px; line-height: 28px; font-weight: bold; z-index: 1;">4</div>
+        <img src="https://europewholesales.com/cdn/shop/files/VINTEDACADEMY2.03-ezgif.com-video-to-gif-converter.gif?v=1743603071" alt="Passo 4" style="width: 100%; border-radius: 8px;">
+      </div>
+      <p style="margin-top: 12px; font-size: 1.05rem;">Começa a <strong>ganhar dinheiro</strong> com a revenda de roupa vintage.</p>
+    </div>
+
+  </div>
+</section>
+  <script>
+  // Accordion open/close - só 1 aberto de cada vez
+  document.querySelectorAll('.accordion-header').forEach(header => {
+    header.addEventListener('click', () => {
+      const currentlyOpen = document.querySelector('.accordion-content.open');
+      const currentlyArrow = document.querySelector('.accordion-arrow.open');
+      const content = header.nextElementSibling;
+      const arrow = header.querySelector('.accordion-arrow');
+
+      if (currentlyOpen && currentlyOpen !== content) {
+        currentlyOpen.classList.remove('open');
+        currentlyOpen.style.maxHeight = null;
+        if (currentlyArrow) currentlyArrow.classList.remove('open');
+      }
+
+      content.classList.toggle('open');
+      arrow.classList.toggle('open');
+
+      if (content.classList.contains('open')) {
+        content.style.maxHeight = content.scrollHeight + "px";
+      } else {
+        content.style.maxHeight = null;
+      }
+    });
+  });
+</script>
+
+
+
+</body>
+</html>

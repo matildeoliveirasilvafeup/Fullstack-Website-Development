@@ -1,0 +1,2331 @@
+<style>.scroll-gallery{display:flex;justify-content:center;gap:20px;overflow:hidden;height:500px}.column{display:flex;flex-direction:column;gap:20px;animation:10s linear infinite scroll-up}.column.reverse{animation:10s linear infinite scroll-down}.column img{width:100%;border-radius:10px;box-shadow:0 4px 8px rgba(0,0,0,.1)}@keyframes scroll-up{0%{transform:translateY(0)}100%{transform:translateY(-100%)}}@keyframes scroll-down{0%{transform:translateY(-100%)}100%{transform:translateY(0)}}div:empty{display:block!important}#bloco-rotativo,#bloco-rotativo>div,.pf-7_,.pf-8_,.pf-c{margin-top:0!important;padding-top:0!important}@media screen and (min-width:600px) and (max-width:1024px){body,html{overflow-x:hidden!important}}</style><div data-pf-editor-version="legacy" class="sc-imwrwD kQwaPS __pf __pf_eJUFP-Cj" id="__pf"><div data-pf-type="Body" class="sc-djTQOc ejtSSi pf-4_"><div data-pf-type="Layout" class="sc-fatbYi kUsjkM pf-5_"><div data-section-id="pf-5fe2" data-pf-type="Section" class="sc-epRwmx cpmRjY pf-6_ pf-color-scheme-1"><div style="--cw:718px" class="sc-djVWQC dKziBg"><div class="sc-hzhKNl fltMam pf-7_ pf-r pf-r-eh" style="--s-xs:15px;position:relative" data-pf-type="Row"><div class="pf-c" style="--c-xs:12;--c-sm:12;--c-md:12;--c-lg:12"><div data-pf-type="Column" class="sc-pKreJ bIaXH pf-8_"><div data-pf-type="Custom.HTML" class="sc-boZfnm jvQCDP pf-9_"><!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Layout Corrigido</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Estilos Gerais e Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      overflow-x: hidden;
+      /* Evita scroll horizontal */
+      background: transparent;
+      font-family: 'Archivo Black', sans-serif;
+    }
+
+    /* Estilos do Bloco Rotativo (principal) */
+    #bloco-rotativo {
+      width: 100vw;
+      margin-left: calc(-50vw + 50%);
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 2304 / 2750;
+    }
+
+    #imagem-animada {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      z-index: 0;
+      animation: zoom-move 10s ease-in-out infinite;
+    }
+
+    @keyframes zoom-move {
+      0% {
+        transform: scale(1) translateY(0px);
+      }
+
+      25% {
+        transform: scale(1.05) translateY(-10px);
+      }
+
+      50% {
+        transform: scale(1.1) translateY(-20px);
+      }
+
+      75% {
+        transform: scale(1.05) translateY(-10px);
+      }
+
+      100% {
+        transform: scale(1) translateY(0px);
+      }
+    }
+
+    .marquee-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 30px;
+      background: #000;
+      color: white;
+      overflow: hidden;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .marquee-content {
+      display: flex;
+      gap: 60px;
+      white-space: nowrap;
+      animation: scroll-left 95s linear infinite;
+      font-size: 12px;
+    }
+
+    .marquee-content span {
+      padding: 0 18px;
+    }
+
+    @keyframes scroll-left {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    #texto-rotativo {
+      max-width: 90%;
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -45%);
+      text-align: center;
+      color: white;
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 6vw;
+      z-index: 1;
+      transition: opacity 1s ease;
+    }
+
+    .botao-novidades {
+      position: absolute;
+      bottom: 8%;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      /* Use flex para centralizar */
+      align-items: center;
+      justify-content: center;
+      /* Centraliza o conteúdo horizontalmente */
+      gap: 12px;
+      background-color: #FFD600;
+      color: #111;
+      font-family: 'Archivo Black', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      text-decoration: none;
+      border-radius: 4px;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .botao-novidades:hover {
+      background-color: #111;
+      color: #FFD600;
+    }
+
+    .seta {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    /* Estilos do Marquee Inferior ("NOVIDADES") */
+    .marquee {
+      display: flex;
+      width: 100vw;
+      overflow: hidden;
+      background: #2B54C2;
+      padding: 5px 0 2px 0;
+      box-sizing: border-box;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      height: 30px;
+      font-size: 10px;
+      z-index: 1;
+      font-family: Arial, sans-serif;
+    }
+
+    .marquee__list {
+      display: flex;
+      white-space: nowrap;
+      min-width: 200%;
+      animation: marquee-scroll 30s linear infinite;
+    }
+
+    .marquee__item {
+      display: inline-block;
+      padding: 0 10px;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 15px;
+      user-select: none;
+    }
+
+    @keyframes marquee-scroll {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* Estilos da Seção de Categorias */
+    .category-section {
+      text-align: center;
+      margin-top: 40px;
+      /* Aumenta o espaçamento superior */
+      margin-bottom: 20px;
+    }
+
+    .category-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: #2B54C2;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .view-all-link {
+      display: inline-block;
+      font-size: 16px;
+      color: #232323;
+      text-decoration: none;
+      margin-top: 10px;
+      font-weight: 400;
+    }
+
+    .view-all-link::after {
+      content: "";
+      display: block;
+      width: 50px;
+      height: 2px;
+      background: #232323;
+      margin: 10px auto 0;
+    }
+
+    .categorias-section {
+      position: relative;
+      width: 100vw;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      overflow-x: hidden;
+      padding-top: 10px;
+      background: #fff;
+    }
+
+    .categorias-carousel {
+      padding-left: 0;
+      margin-left: 0;
+      display: flex;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+    }
+
+    /* Esconde scrollbar */
+    .categorias-carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .categorias-carousel {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .categoria-item {
+      position: relative;
+      flex: 0 0 390px;
+      height: 430px;
+      overflow: hidden;
+      cursor: pointer;
+      margin: 0;
+      padding: 0;
+      border-radius: 0;
+      text-decoration: none;
+      background: #000;
+    }
+
+    .categoria-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+      border-radius: 0;
+    }
+
+    .categoria-item:hover .categoria-img {
+      transform: scale(1.12);
+    }
+
+    .categoria-texto {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #FFCC00;
+      /* Cor amarela para o texto das categorias */
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 60px;
+      font-weight: 900;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* Estilos da Barra de Logos */
+    .logo-bar {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      justify-items: center;
+      align-items: center;
+      margin: 0;
+      padding-top: 0px;
+      padding-bottom: 20px;
+      max-width: 100%;
+      position: relative;
+      z-index: 0;
+      background: transparent;
+      margin-top: 10px;
+      /* Adiciona margem acima da barra de logos */
+    }
+
+    .brand-logo {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+      background: transparent;
+    }
+
+    .brand-logo:hover {
+      transform: scale(1.1);
+    }
+
+    /* Estilos do Full Banner */
+    .full-banner-wrapper {
+      position: relative;
+      width: 100vw;
+      max-width: 100vw;
+      margin-left: calc(-50vw + 50%);
+      overflow: hidden;
+      padding-top: 10px;
+    }
+
+    .full-banner-bg {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      padding-top: 10px;
+    }
+
+    .full-banner-bg.mobile {
+      display: none;
+      padding-bottom: 10px;
+      padding-top: 20px;
+    }
+
+    .fade-top,
+    .fade-bottom {
+      position: absolute;
+      width: 100%;
+      height: 60px;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .fade-top {
+      top: 40px;
+      background: linear-gradient(to bottom, white, transparent);
+    }
+
+    .fade-bottom {
+      bottom: 0;
+      background: linear-gradient(to top, white, transparent);
+    }
+
+    .full-banner-btn-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      text-align: center;
+      padding-top: 10px;
+    }
+
+    .full-banner-btn {
+      padding: 18px 50px;
+      background: #f9cd41;
+      color: black;
+      text-decoration: none;
+      font-size: 1.6rem;
+      font-weight: bold;
+      border: 2px solid #007bff;
+      border-radius: 8px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    /* Media Queries (Responsividade) */
+    @media (max-width: 1024px) {
+      .fundo-escuro-mobile {
+        padding-top: 0 !important;
+      }
+
+      #texto-rotativo {
+        font-size: clamp(30px, 6vw, 40px);
+        line-height: 1.2;
+      }
+
+      .botao-novidades {
+        font-size: 12px;
+        padding: 10px 20px;
+        gap: 8px;
+      }
+
+      .seta {
+        font-size: 16px;
+      }
+
+      .marquee__item {
+        padding: 0 8px;
+        font-size: 15px;
+      }
+
+      .marquee {
+        height: 30px;
+      }
+
+      .category-section {
+        margin-top: 25px;
+      }
+
+      /* Ajuste de margem para mobile */
+      .category-title {
+        font-size: 28px;
+      }
+
+      .view-all-link {
+        font-size: 14px;
+      }
+
+      .categorias-titulo {
+        font-size: 32px;
+      }
+
+      .categorias-carousel {
+        gap: 0px;
+        padding-left: 0px;
+      }
+
+      .categoria-item {
+        flex: 0 0 390px;
+        height: 450px;
+      }
+
+      .categoria-texto {
+        font-size: 60px;
+      }
+
+      .full-banner-bg.desktop {
+        display: none;
+      }
+
+      .full-banner-bg.mobile {
+        display: block;
+      }
+
+      .full-banner-btn {
+        padding: 12px 30px;
+        font-size: 1.2rem;
+        white-space: normal;
+        line-height: 1.4;
+      }
+
+      .full-banner-btn-container {
+        width: 90%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .fade-top,
+      .fade-bottom {
+        display: none;
+      }
+
+      .brand-logo {
+        max-width: 80px;
+      }
+
+      .logo-bar {
+        z-index: 2;
+        background: transparent;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .full-banner-wrapper {
+        padding-top: 0;
+      }
+
+      .fade-top {
+        top: 0;
+      }
+
+      .full-banner-btn-container {
+        top: calc(50% + 100px);
+      }
+
+      .brand-logo {
+        max-width: 140px !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="bloco-rotativo" class="fundo-escuro-mobile">
+    <div id="imagem-animada"></div>
+
+    <div class="marquee-bar">
+      <div class="marquee-content">
+        <span>💰 BEM VINDO à DROPLAWI 💰</span>
+        <span>⭐ SOMOS OS FORNECEDORES QUE ESTÁS À PROCURA ⭐</span>
+        <span>🇵🇹 ENTREGAS RÁPIDAS EM PORTUGAL 🇵🇹</span>
+        <span>🚚 PORTES GRÁTIS: PORTUGAL DESDE 249,99€ 🚚</span>
+        <span>🌍 QUALIDADE E CONFIANÇA 🌍</span>
+        <span>💰 BEM VINDO à DROPLAWI 💰</span>
+        <span>⭐ SOMOS OS FORNECEDORES QUE ESTÁS À PROCURA ⭐</span>
+        <span>🇵🇹 ENTREGAS RÁPIDAS EM PORTUGAL 🇵🇹</span>
+        <span>🚚 PORTES GRÁTIS: PORTUGAL DESDE 249,99€ 🚚</span>
+        <span>🌍 QUALIDADE E CONFIANÇA 🌍</span>
+        <span>💰 BEM VINDO à DROPLAWI 💰</span>
+        <span>⭐ SOMOS OS FORNECEDORES QUE ESTÁS À PROCURA ⭐</span>
+        <span>🇵🇹 ENTREGAS RÁPIDAS EM PORTUGAL 🇵🇹</span>
+        <span>🚚PORTES GRÁTIS: PORTUGAL DESDE 249,99€ 🚚</span>
+        <span>🌍 QUALIDADE E CONFIANÇA 🌍</span>
+        <span>💰 BEM VINDO à DROPLAWI 💰</span>
+        <span>⭐ SOMOS OS FORNECEDORES QUE ESTÁS À PROCURA ⭐</span>
+        <span>🇵🇹 ENTREGAS RÁPIDAS EM PORTUGAL 🇵🇹</span>
+        <span>🚚 PORTES GRÁTIS: PORTUGAL DESDE 249,99€ 🚚</span>
+        <span>🌍 QUALIDADE E CONFIANÇA 🌍</span>
+        <span>💰 BEM VINDO à DROPLAWI 💰</span>
+        <span>⭐ SOMOS OS FORNECEDORES QUE ESTÁS À PROCURA ⭐</span>
+        <span>🇵🇹 ENTREGAS RÁPIDAS EM PORTUGAL 🇵🇹</span>
+        <span>🚚 PORTES GRÁTIS: PORTUGAL DESDE 249,99€ 🚚</span>
+        <span>🌍 QUALIDADE E CONFIANÇA 🌍</span>
+        <span>💰 BEM VINDO à DROPLAWI 💰</span>
+        <span>⭐ SOMOS OS FORNECEDORES QUE ESTÁS À PROCURA ⭐</span>
+        <span>🇵🇹 ENTREGAS RÁPIDAS EM PORTUGAL 🇵🇹</span>
+        <span>🚚 PORTES GRÁTIS: PORTUGAL DESDE 249,99€ 🚚</span>
+        <span>🌍 QUALIDADE E CONFIANÇA 🌍</span>
+      </div>
+    </div>
+
+    <div id="texto-rotativo">NÓS SOMOS OS ÚNICOS WHOLESALERS PORTUGUESES</div>
+
+    <a href="https://droplawi.com/collections/todos-os-artigos" class="botao-novidades">
+      <span class="seta">›</span>TODOS OS ARTIGOS
+    </a>
+  </div>
+
+  <div class="marquee">
+    <div class="marquee__list">
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+      <span class="marquee__item">NOVIDADES</span>
+    </div>
+  </div>
+
+  <div class="logo-bar">
+    <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/tommy-hilfiger-logo-png_seeklogo-328357-removebg-preview.png?v=1745778594&width=450" alt="Tommy Hilfiger" class="brand-logo">
+    <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/Carhartt-Logo.png?v=1745777086&width=450" alt="Carhartt" class="brand-logo">
+    <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/Dickies-Logo-1024x576.png?v=1745777086&width=450" alt="Dickies" class="brand-logo">
+    <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/NFL-logo-1536x1037.png?v=1745777086&width=450" alt="NFL" class="brand-logo">
+    <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/Ralph-lauren-Logo-1024x640.png?v=1745777086&width=450" alt="Polo Ralph Lauren" class="brand-logo">
+  </div>
+
+  <div class="category-section">
+    <h2 class="category-title">CATEGORIAS</h2>
+    <a href="/collections" class="view-all-link">Ver Tudo</a>
+  </div>
+
+  <div class="categorias-section">
+    <div class="categorias-carousel">
+      <a href="https://droplawi.com/collections/mix-pack-s-reseller" class="categoria-item">
+        <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/wwd.png?v=1747385126" alt="CASACOS" class="categoria-img" />
+        <div class="categoria-texto">CASACOS</div>
+      </a>
+      <a href="https://droplawi.com/collections/kilos" class="categoria-item">
+        <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/Gemini_Generated_Image_n4u7ihn4u7ihn4u7.png?v=1758202606" alt="KILOS" class="categoria-img" />
+        <div class="categoria-texto">KILOS</div>
+      </a>
+      <a href="https://droplawi.com/collections/mix-combos" class="categoria-item">
+        <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/combo_III.png?v=1751318501" alt="COMBOS" class="categoria-img" />
+        <div class="categoria-texto">COMBOS</div>
+      </a>
+      <a href="https://droplawi.com/collections/polos-tommy" class="categoria-item">
+        <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/polosralphlauren-Photoroom_013870bc-64de-4ad7-81af-b710d4865375.jpg?v=1747306591" alt="POLOS" class="categoria-img" />
+        <div class="categoria-texto">POLOS</div>
+      </a>
+      <a href="https://droplawi.com/collections/casacos" class="categoria-item">
+        <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/1.png?v=1746871261" alt="SWEATERS" class="categoria-img" />
+        <div class="categoria-texto">SWEATS</div>
+      </a>
+      <a href="https://droplawi.com/collections/camisolas" class="categoria-item">
+        <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/mmm_67cb098e-f9be-4a50-8248-409f177f048e.png?v=1747306567" alt="T-SHIRTS" class="categoria-img" />
+        <div class="categoria-texto">TSHIRTS</div>
+      </a>
+      <a href="https://droplawi.com/collections/calcas" class="categoria-item">
+        <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/Untitled_design_-_8_102e9ca9-4f9b-45ed-8a0a-af60a3dedfdf.jpg?v=1747306686" alt="CALÇAS" class="categoria-img" />
+        <div class="categoria-texto">CALÇAS</div>
+      </a>
+      <a href="https://droplawi.com/collections/last-chance" class="categoria-item">
+        <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/Ralph_Laren_By_Kilos_5b10b501-da76-4bf8-b2bd-2021709c4bd4.png?v=1747323959" alt="LAST CHANCE" class="categoria-img" />
+        <div class="categoria-texto">LAST CHANCE</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="full-banner-wrapper">
+    <img class="full-banner-bg desktop"
+    src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/Design_sem_nome_3_19194d3f-cdc0-4693-af1f-9b34b0ce784c.png?v=1751145602"
+    alt="Banner desktop">
+
+    <img class="full-banner-bg mobile"
+    src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/Design_sem_nome_1.png?v=1747170407&width=450"
+    alt="Banner mobile">
+
+    <div class="fade-top"></div>
+    <div class="fade-bottom"></div>
+
+    <div class="full-banner-btn-container">
+      <a class="full-banner-btn" href="/pages/principais-vendas">
+        VÊ OS PRODUTOS EM ALTA 🔥
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const frases = [
+    {
+      texto: `NÓS SOMOS OS ÚNICOS WHOLESALERS PORTUGUESES`,
+      imagem: 'https://cdn.shopify.com/s/files/1/0910/9520/4214/files/IMG_7855.jpg?v=1745581310'
+    },
+    {
+      texto: `<span style="color:#ff4d4d;">EXPANDE O TEU NEGÓCIO</span><br><span style="color:white;">COM A DROPLAWI</span>`,
+      imagem: 'https://cdn.shopify.com/s/files/1/0910/9520/4214/files/IMG_7855_black.jpg?v=1749251806'
+    }
+  ];
+
+  let i = 0;
+  const texto = document.getElementById("texto-rotativo");
+  const imagemAnimada = document.getElementById("imagem-animada");
+
+  if (texto && imagemAnimada) {
+      // Define a imagem inicial e texto para evitar um 'flash' vazio
+      imagemAnimada.style.backgroundImage = `url('${frases[0].imagem}')`;
+      texto.innerHTML = frases[0].texto;
+
+      setInterval(() => {
+        texto.style.opacity = 0;
+        setTimeout(() => {
+          i = (i + 1) % frases.length;
+          imagemAnimada.style.backgroundImage = `url('${frases[i].imagem}')`;
+          texto.innerHTML = frases[i].texto;
+          texto.style.opacity = 1;
+        }, 800);
+      }, 3000);
+  }
+  
+  // Script para o scroll automático do carrossel de categorias (mobile)
+  if (window.innerWidth <= 768) {
+    const carousel = document.querySelector('.categorias-carousel');
+    
+    if (carousel) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              carousel.scrollBy({ left: 250, behavior: 'smooth' }); // Scroll para a direita
+              setTimeout(() => {
+                carousel.scrollBy({ left: -250, behavior: 'smooth' }); // Scroll de volta para a esquerda
+              }, 1000);
+            }
+          });
+        },
+        {
+          root: null,
+          threshold: 0.3
+        }
+      );
+      observer.observe(carousel);
+    }
+  }
+  </script>
+
+</body>
+
+</html></div></div></div></div></div></div><div data-section-id="pf-7ced" data-pf-type="Section" class="sc-epRwmx cpmRjY pf-10_ pf-color-scheme-1"><div style="--cw:1498px" class="sc-djVWQC dKziBg"><div class="sc-hzhKNl fltMam pf-11_ pf-r pf-r-eh" style="--s-xs:15px;position:relative" data-pf-type="Row"><div class="pf-c" style="--c-xs:12;--c-sm:12;--c-md:12;--c-lg:12"><div data-pf-type="Column" class="sc-pKreJ bIaXH pf-12_"><div class="sc-hzhKNl fltMam pf-13_ pf-r pf-r-eh" style="--s-xs:8px;--s-sm:15px;position:relative" data-pf-type="Row"><div class="pf-c" style="--c-xs:12;--c-sm:12;--c-md:12;--c-lg:12"><div data-pf-type="Column" class="sc-pKreJ bIaXH pf-14_"><div data-pf-type="Custom.HTML" class="sc-boZfnm jvQCDP pf-15_">{% assign produtos = "calcas-carhartt,polos-ralph-lauren,vintage-sweaters,polo-ralph-tee" | split: "," %}
+{% assign videos =
+"https://cdn.shopify.com/videos/c/o/v/cb49154d95514d49aca5a960e1a9d680.mp4,https://cdn.shopify.com/videos/c/o/v/6f192baba6544f9b98c522fe49831c2d.mp4,https://cdn.shopify.com/videos/c/o/v/537f5f5697fc449cb616ac27bc81b5dc.mp4,https://cdn.shopify.com/videos/c/o/v/e98b7ae6db1340e49787cca330696145.mp4"
+| split: "," %}
+
+<h2 class="carrossel-titulo">⭐ MELHOR QUALIDADE GARANTIDA ⭐</h2>
+
+<div class="carrossel-wrapper">
+  <div class="carrossel-container">
+
+    {% for i in (0..3) %}
+    {% assign handle = produtos[i] | strip %}
+    {% assign video_url = videos[i] | strip %}
+    {% assign produto = all_products[handle] %}
+
+    <div class="meu-componente-customizado" data-index="{{ i }}">
+      <div class="video-wrapper">
+        <video autoplay muted loop playsinline class="background-video">
+          <source src="{{ video_url }}" type="video/mp4">
+        </video>
+        <div class="overlay-content">
+          {% if produto.images.size > 0 %}
+          <img src="{{ produto.images.first | img_url: '300x' }}" class="miniatura" alt="{{ produto.title }}">
+          {% else %}
+          <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/calcas_58e3584c-f770-49c6-8b1d-1b8e01c379ae.jpg?v=1745581503" class="miniatura" alt="Produto">
+          {% endif %}
+          <div class="text-info">
+            <h2>{{ produto.title }}</h2>
+            <p class="preco-topo" id="preco-{{ i }}">€{{ produto.price | divided_by: 100.0 | round: 2 }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="quantia-container">
+        <label class="quantia-label">QUANTIA:</label>
+        <div class="quantia-selector dropdown-toggle" onclick="toggleDropdown(this)">
+          <span class="quantia-selecionada">Escolher quantidade</span>
+          <span class="seta-dropdown">▼</span>
+        </div>
+        <div class="quantia-options" data-index="{{ i }}">
+          {% for variant in produto.variants %}
+          <button
+            data-variant-id="{{ variant.id }}"
+            onclick="selecionarQuantia(this, event)">
+            {{ variant.title }} (€{{ variant.price | divided_by: 100.0 | round: 2 }})
+          </button>
+          {% endfor %}
+        </div>
+        <div class="preco-info" id="preco-info-{{ i }}">€{{ produto.price | divided_by: 100.0 | round: 2 }}</div>
+      </div>
+
+      <div class="btn-wrapper">
+        <button class="add-cart" onclick="tratarCliqueCarrinho(this, event)">
+          <span class="cart-content">
+            adicionar ao carrinho <span class="cart-icon">🛒</span>
+          </span>
+        </button>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  html,
+  body {
+    overflow-x: hidden !important;
+  }
+
+  h2.carrossel-titulo {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-size: 30px;
+  }
+
+  .carrossel-wrapper {
+    overflow-x: auto;
+    /* Permite scroll horizontal quando o conteúdo exceder */
+    overflow-y: visible;
+    /* CRÍTICO: Permite que o conteúdo (dropdown) saia dos limites verticais */
+    -webkit-overflow-scrolling: touch;
+    /* Melhora a experiência de scroll em iOS */
+    margin: 0;
+    padding: 0;
+    position: relative;
+    z-index: 5;
+    /* Garante que o wrapper tenha um contexto de empilhamento */
+  }
+
+  .carrossel-wrapper::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .carrossel-wrapper::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+  }
+
+  .carrossel-container {
+    display: flex;
+    flex-wrap: nowrap;
+    /* Impede que os itens quebrem para a próxima linha */
+    gap: 16px;
+    width: max-content;
+    /* CRÍTICO: Faz com que o contêiner se expanda para caber todo o conteúdo */
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    margin: 0 auto;
+    overflow: visible;
+    /* Garante que os filhos, como o dropdown, não sejam cortados */
+  }
+
+  .meu-componente-customizado {
+    flex: 0 0 auto;
+    flex-shrink: 0;
+    width: 260px;
+    min-width: 260px;
+    scroll-snap-align: start;
+    position: relative;
+    overflow: visible;
+    /* CRÍTICO: Permite que o dropdown saia do componente. */
+    z-index: 1;
+    /* Z-index base para cada item. */
+    transition: z-index 0.3s ease;
+  }
+
+  .meu-componente-customizado.active-dropdown {
+    z-index: 10000;
+    /* Z-index EXTREMAMENTE alto para sobrepor TUDO */
+  }
+
+  .video-wrapper {
+    position: relative;
+    border-radius: 15px 15px 0 0;
+    overflow: hidden;
+    /* Mantenha overflow: hidden para cortar o vídeo nas bordas arredondadas. */
+  }
+
+  .background-video {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  .overlay-content {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-shadow: 0 0 5px black;
+    z-index: 2;
+  }
+
+  .miniatura {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+  }
+
+  .text-info h2 {
+    font-size: 16px;
+    margin: 0;
+    color: white;
+  }
+
+  .text-info p {
+    font-size: 14px;
+    margin: 0;
+  }
+
+  .quantia-container {
+    position: relative;
+    padding: 12px 0 0 0;
+    z-index: 1000;
+    /* Z-index alto para o contêiner do dropdown dentro do componente */
+  }
+
+  .quantia-label {
+    font-weight: bold;
+    font-size: 13px;
+    margin-bottom: 5px;
+    display: block;
+  }
+
+  .quantia-selector {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f1f1f1;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+
+  .quantia-options {
+    position: absolute;
+    bottom: 100%;
+    /* Ajustado para aparecer acima do seletor */
+    left: 0;
+    width: 100%;
+    z-index: 99999;
+    display: none;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    max-height: 250px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid #ddd;
+    padding: 0;
+    margin-bottom: 5px;
+    /* Espaço entre o seletor e o dropdown */
+    transform: translateY(0%);
+    /* Reset ou valor inicial */
+  }
+
+  .quantia-options.active {
+    display: block;
+    transform: translateY(0%);
+    /* Garante que não haja deslocamento adicional */
+  }
+
+  .quantia-options button {
+    width: 100%;
+    padding: 8px 12px;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  .quantia-options button:hover {
+    background-color: #f0f0f0;
+  }
+
+  .preco-info {
+    margin-top: 8px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .btn-wrapper {
+    padding: 12px;
+    text-align: center;
+  }
+
+  .add-cart {
+    background-color: #FFD700;
+    border: none;
+    color: black;
+    padding: 12px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 0 0 15px 15px;
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .add-cart:hover,
+  .add-cart:active {
+    background-color: #000;
+    color: #fff;
+  }
+
+  .cart-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .cart-icon {
+    font-size: 18px;
+    transition: color 0.3s;
+  }
+
+  .add-cart:hover .cart-icon,
+  .add-cart:active .cart-icon {
+    color: #fff;
+  }
+
+  @media (max-width: 768px) {
+    .video-wrapper {
+      aspect-ratio: 9 / 16;
+    }
+  }
+</style>
+
+<script>
+  function toggleDropdown(el) {
+    const component = el.closest('.meu-componente-customizado');
+    const options = component.querySelector('.quantia-options');
+    const allComponents = document.querySelectorAll('.meu-componente-customizado');
+
+    const wasActive = options.classList.contains('active');
+
+    allComponents.forEach(comp => {
+      const openOptions = comp.querySelector('.quantia-options');
+      openOptions.classList.remove('active');
+      comp.classList.remove('active-dropdown');
+    });
+
+    if (!wasActive) {
+      options.classList.add('active');
+      component.classList.add('active-dropdown');
+    }
+  }
+
+  document.addEventListener('click', function(event) {
+    document.querySelectorAll('.meu-componente-customizado').forEach(component => {
+      const dropdownOptions = component.querySelector('.quantia-options');
+      if (dropdownOptions && !component.contains(event.target)) {
+        dropdownOptions.classList.remove('active');
+        component.classList.remove('active-dropdown');
+      }
+    });
+  });
+
+  window.addEventListener('scroll', function() {
+    document.querySelectorAll('.quantia-options.active').forEach(openDropdown => {
+      openDropdown.classList.remove('active');
+      const component = openDropdown.closest('.meu-componente-customizado');
+      if (component) {
+        component.classList.remove('active-dropdown');
+      }
+    });
+  });
+
+  function selecionarQuantia(botao, event) {
+    event.stopPropagation();
+    
+    const container = botao.closest('.meu-componente-customizado');
+    if (!container) return;
+    
+    const fullText = botao.textContent.trim();
+    const matchPrice = fullText.match(/\(€.*\)/);
+    const title = fullText.split(' (€')[0];
+    const priceText = matchPrice ? matchPrice[0].replace(/[()]/g, '') : '';
+    
+    const selecionadaSpan = container.querySelector('.quantia-selecionada');
+    if (selecionadaSpan) {
+      selecionadaSpan.textContent = title;
+    }
+
+    const precoInfo = container.querySelector('.preco-info');
+    if (precoInfo) {
+      precoInfo.textContent = priceText;
+    }
+
+    const botaoCarrinho = container.querySelector('.add-cart');
+    if (botaoCarrinho) {
+      botaoCarrinho.setAttribute('data-variant-id', botao.getAttribute('data-variant-id'));
+    }
+
+    const optionsDropdown = container.querySelector('.quantia-options');
+    if (optionsDropdown) {
+      optionsDropdown.classList.remove('active');
+      container.classList.remove('active-dropdown');
+    }
+  }
+
+  function tratarCliqueCarrinho(botao, event) {
+    event.preventDefault();
+
+    const variantId = botao.getAttribute('data-variant-id');
+
+    if (!variantId) {
+      alert("Seleciona uma quantia antes de adicionar ao carrinho.");
+      return;
+    }
+
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '/cart/add';
+
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'id';
+    input.value = variantId;
+
+    form.appendChild(input);
+    document.body.appendChild(form);
+    form.submit();
+  }
+</script></div><div data-pf-type="Custom.HTML" class="sc-boZfnm jvQCDP pf-16_"><!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carrossel Vertical</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background: #fff;
+    }
+
+    .full-width-block {
+      width: 100%;
+      padding-top: 90px;
+      margin: 0;
+      box-sizing: border-box;
+      background: #fff;
+      height: 500px;
+      /* Altura maior para PC e tablet */
+    }
+
+    .scroll-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      height: 100%;
+      background: #fff;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      animation: scrollUp 15s linear infinite;
+    }
+
+    .scroll-gallery .column:nth-child(2) {
+      animation-direction: reverse;
+    }
+
+    @keyframes scrollUp {
+      0% {
+        transform: translateY(0);
+      }
+
+      100% {
+        transform: translateY(-50%);
+      }
+    }
+
+    .scroll-gallery img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      border-radius: 0;
+      display: block;
+      background: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .full-width-block {
+        height: 350px;
+        padding-top: 70px;
+        padding-bottom: 20px;
+      }
+
+      .scroll-gallery {
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="full-width-block">
+    <div class="scroll-gallery">
+      <div class="column">
+        <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/carhart.jpg?v=1744306152&width=450" />
+        <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/calcas.jpg?v=1744306153&width=450" />
+        <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/casa.jpg?v=1744306152&width=450" />
+        <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/reworl.jpg?v=1744306153&width=450" />
+        <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/marcas.jpg?v=1744306153&width=450" />
+      </div>
+      <div class="column">
+        <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/vintedeste_aaea6917-f318-476a-a855-c715a561911c.png?v=1744306153&width=450" />
+        <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/flea.jpg?v=1744306153&width=450" />
+        <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/olx.jpg?v=1744306153&width=450" />
+        <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/ebay.jpg?v=1744306153&width=450" />
+        <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/vintedeste_aaea6917-f318-476a-a855-c715a561911c.png?v=1744306153&width=450" />
+      </div>
+      <div class="column">
+        <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/ecc8d0985d92f1765ff58d0d6c1f1fc4.jpg?v=1744306901&width=450" />
+        <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/bb65803ee76cf7d96a6e7dec72a34129.jpg?v=1744306900&width=450" />
+        <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/61a97d7e8c74bdf78c565cbc0a1d7f2b.jpg?v=1744306901&width=450" />
+        <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/2145d768a4c253302f7daffe70638b21.jpg?v=1744306900&width=450" />
+        <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/4cba240e02de5a456cf0abfe99435b75.jpg?v=1744306900&width=450" />
+      </div>
+    </div>
+  </div>
+</body>
+
+</html></div></div></div></div></div></div></div></div></div><div data-section-id="pf-4dfb" data-pf-type="Section" class="sc-epRwmx cpmRjY pf-17_ pf-color-scheme-1"><div style="--cw:1170px" class="sc-djVWQC dKziBg"><div class="sc-hzhKNl fltMam pf-18_ pf-r pf-r-eh" style="--s-xs:15px;position:relative" data-pf-type="Row"><div class="pf-c" style="--c-xs:12;--c-sm:12;--c-md:12;--c-lg:12"><div data-pf-type="Column" class="sc-pKreJ bIaXH pf-19_"><div data-pf-type="Custom.HTML" class="sc-boZfnm jvQCDP pf-20_"><!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Perguntas Frequentes</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #fff;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .faq-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 45px;
+      justify-content: center;
+      align-items: flex-start;
+      max-width: 1200px;
+      margin-top: 40px;
+      /* Diminui a margem superior */
+      padding: 0 20px;
+      transform: translateY(-30px);
+    }
+
+    .faq-section {
+      flex: 1 1 500px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .faq-section h1 {
+      font-family: Arial, sans-serif;
+      margin-bottom: 40px;
+      font-size: 45px;
+      font-weight: bold;
+      color: #044ca6;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-shadow:
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+      /* mesma sombra preta */
+    }
+
+    .faq-item {
+      background: #fff;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      border: 1px solid #ffff;
+      overflow: hidden;
+      padding: 20px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .faq-item:hover {
+      background-color: #f0f0f0;
+      /* cinza claro */
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      transform: translateY(-5px);
+    }
+
+    .faq-item.active {
+      background-color: #fff3cd;
+      border-color: #ffeeba;
+    }
+
+    .faq-item.active .faq-question {
+      color: #333;
+    }
+
+    .faq-question {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: bold;
+      font-size: 18px;
+      color: #333;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .faq-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Correção para as setas SVG */
+    .faq-chevron {
+      transition: transform 0.3s ease;
+      font-size: 20px;
+    }
+
+    .faq-chevron path {
+      fill: #FFB300;
+      /* amarelo quando não clicado */
+      transition: fill 0.3s ease;
+    }
+
+    .faq-item.active .faq-chevron {
+      transform: rotate(180deg);
+    }
+
+    .faq-item.active .faq-chevron path {
+      fill: #000000;
+      /* preto quando clicado */
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 15px 20px;
+      border-top: 1px solid #eee;
+      font-size: 16px;
+      color: #555;
+      margin-top: 10px;
+    }
+
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+
+    .faq-image img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .faq-image {
+      margin-top: 20px;
+    }
+
+    @media (max-width: 1024px) {
+      .faq-container {
+        justify-content: center;
+      }
+
+      .faq-section {
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="faq-container">
+    <div class="faq-section">
+      <h1>Q & A</h1>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <div class="faq-left">
+            <span style="font-size: 20px;">📍</span>
+            De onde vêm as peças?
+          </div>
+          <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20">
+            <path d="M7 10l5 5 5-5z" />
+          </svg>
+        </div>
+        <div class="faq-answer">
+          Todo o nosso stock vem dos Estados Unidos.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <div class="faq-left">
+            <span style="font-size: 20px;">🏅</span>
+            Como é a qualidade dos lotes?
+          </div>
+          <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20">
+            <path d="M7 10l5 5 5-5z" />
+          </svg>
+        </div>
+        <div class="faq-answer">
+          Oferecemos produtos em duas categorias:<br>
+Grau A, onde os itens estão em perfeitas condições.<br>
+Grau B, onde os produtos podem apresentar pequenas imperfeições como uma ligeira mancha ou um pequeno buraco.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <div class="faq-left">
+            <span style="font-size: 20px;">⏰</span>
+            Quanto tempo leva para o meu pedido chegar?
+          </div>
+          <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20">
+            <path d="M7 10l5 5 5-5z" />
+          </svg>
+        </div>
+        <div class="faq-answer">
+          Depois de efetuada a compra, o pedido apresenta dois estados:<br /><br />
+          1. Preparação (48-72 horas úteis)<br />
+          2. Envio (24-48 horas úteis)<br /><br />
+          O pedido deverá estar nas tuas mãos em 7 dias úteis.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <div class="faq-left">
+            <span style="font-size: 20px;">⭐</span>
+            Porque nos deve escolher como fornecedor?
+          </div>
+          <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20">
+            <path d="M7 10l5 5 5-5z" />
+          </svg>
+        </div>
+        <div class="faq-answer">
+          Iremos tratar-te com o mesmo respeito, quer estejas a começar este negócio de revenda ou caso queiras comprar
+          200kg connosco.<br /><br />
+          Além disso, já tivemos desse lado, percebemos o que vende e o que não vende.
+        </div>
+      </div>
+
+      <div class="faq-item" id="last-faq-item">
+        <div class="faq-question">
+          <div class="faq-left">
+            <span style="font-size: 20px;">🔍</span>
+            Posso ver as peças antes de comprar?
+          </div>
+          <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20">
+            <path d="M7 10l5 5 5-5z" />
+          </svg>
+        </div>
+        <div class="faq-answer">
+          Sim! Temos um serviço de videochamada com o valor de 20€, deduzível no final da tua compra, onde pode ver as
+          peças ao vivo e escolher as que
+          mais
+          gostares.<br /><br />
+          Relembramos novamente que este valor será <strong>depois descontado no total da tua encomenda</strong>, caso finalizes a
+          compra.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-image">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/classicu_2025-04-05_10621.505_AM.jpg?v=1745608177&width=450"
+        alt="Imagem FAQ" />
+    </div>
+  </div>
+
+  <script>
+    // Clique manual para abrir/fechar perguntas
+    document.querySelectorAll('.faq-question').forEach(question => {
+      question.addEventListener('click', () => {
+        const item = question.parentElement;
+        item.classList.toggle('active');
+      });
+    });
+
+    // Abrir automaticamente a última pergunta ao fazer scroll até ela, com delay de 2 segundos
+    const lastFaqItem = document.getElementById('last-faq-item');
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            lastFaqItem.classList.add('active');
+          }, 2000); // Atraso de 2 segundos
+        }
+      });
+    }, { threshold: 0.5 });
+
+    observer.observe(lastFaqItem);
+  </script>
+</body>
+
+</html></div></div></div></div></div></div><div data-section-id="pf-4583" data-pf-type="Section" class="sc-epRwmx cpmRjY pf-21_ pf-color-scheme-1"><div style="--cw:1170px" class="sc-djVWQC dKziBg"><div class="sc-hzhKNl fltMam pf-22_ pf-r pf-r-eh" style="--s-xs:15px;position:relative" data-pf-type="Row"><div class="pf-c" style="--c-xs:12;--c-sm:12;--c-md:12;--c-lg:12"><div data-pf-type="Column" class="sc-pKreJ bIaXH pf-23_"><div data-pf-type="Custom.HTML" class="sc-boZfnm jvQCDP pf-24_"><div <div
+  style="background-color: #f8f5f1; margin: 0 auto 20px auto; padding: 15px 20px; display: flex; flex-direction: column; align-items: center; gap: 15px; font-family: inherit; max-width: 600px; border-radius: 12px; border: 3px solid #044ca6; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+
+
+  <!-- Texto Videochamada -->
+  <div style="width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center;">
+    <h2
+      style="font-size: 24px; color: #333; margin-bottom: 10px; text-transform: uppercase; font-weight: bold; letter-spacing: 1px;">
+      📹 VIDEOCHAMADAS
+    </h2>
+
+    <p style="font-size: 14px; color: #555; margin-bottom: 10px; line-height: 1.3;">
+      O nosso armazém físico ainda não está disponível, mas podes marcar uma <strong>videochamada</strong> com a nossa
+      equipa e ver os produtos em tempo real.
+    </p>
+
+    <!-- Botão Videochamada -->
+    <div style="width: 100%; display: flex; justify-content: center; margin-top: 25px; margin-bottom: 10px;">
+      <a href="https://droplawi.com/pages/agendamento-videochamadas-e-presencial" class="videochamada-btn">
+        MARCAR VIDEOCHAMADA
+      </a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .videochamada-btn {
+    background-color: #044ca6;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    max-width: 220px;
+    text-align: center;
+    text-transform: uppercase;
+    border: 3px solid #f9cd41;
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+
+  .videochamada-btn:hover {
+    background-color: #65bcff;
+    transform: scale(1.03);
+  }
+
+  /* Media query para dispositivos móveis */
+  @media (max-width: 768px) {
+    div[style*="display: flex; flex-direction: column"] {
+      max-width: 100%;
+      padding: 15px 10px;
+    }
+
+    .videochamada-btn {
+      width: 100%;
+      max-width: none;
+    }
+  }
+</style></div></div></div></div><div class="sc-hzhKNl fltMam pf-25_ pf-r pf-r-eh" style="--s-xs:15px;position:relative" data-pf-type="Row"><div class="pf-c" style="--c-xs:12;--c-sm:12;--c-md:12;--c-lg:12"><div data-pf-type="Column" class="sc-pKreJ bIaXH pf-26_"><div data-pf-type="Custom.HTML" class="sc-boZfnm jvQCDP pf-27_"><!DOCTYPE html>
+<html lang="pt-PT">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Testemunhos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: white;
+    }
+
+    .section-depoimentos-wrapper {
+      width: 100%;
+      background: white;
+    }
+
+    .section-depoimentos {
+      width: 100%;
+      padding: 0rem 1rem 4rem 1rem;
+      text-align: center;
+    }
+
+    .titulo-depoimentos {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+    }
+
+    .emoji {
+      font-size: 2.5rem;
+    }
+
+    .carrossel-container {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .carrossel {
+      display: flex;
+      gap: 1.5rem;
+      padding: 1rem;
+      width: max-content;
+      animation: scroll 200s linear infinite;
+    }
+
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .avaliacao {
+      flex: 0 0 320px;
+      background: white;
+      padding: 2rem;
+      border-radius: 1.25rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      font-size: 1rem;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      opacity: 0.7;
+      transform: scale(0.95);
+    }
+
+    .carrossel-container:hover .carrossel {
+      animation-play-state: paused;
+    }
+
+    .avaliacao.active {
+      transform: scale(1.15);
+      opacity: 1;
+      z-index: 10;
+    }
+
+    .avaliacao h3 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-top: 1rem;
+    }
+
+    .avaliacao p {
+      font-size: 1.05rem;
+      margin: 1rem 0;
+      line-height: 1.6;
+    }
+
+    .avaliacao strong {
+      font-size: 1.1rem;
+      display: block;
+      margin-top: 1rem;
+    }
+
+    .stars {
+      color: #4caf50;
+      font-size: 1.3rem;
+    }
+
+    .stars .half {
+      position: relative;
+      display: inline-block;
+    }
+
+    .stars .half::before {
+      content: '★';
+      position: absolute;
+      width: 50%;
+      overflow: hidden;
+      color: #4caf50;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="section-depoimentos-wrapper">
+    <section class="section-depoimentos">
+      <h2 class="titulo-depoimentos">
+        O que os nossos clientes dizem <span class="emoji">👇</span>
+      </h2>
+
+      <div class="carrossel-container" id="carrossel-container">
+        <div class="carrossel" id="carrossel">
+          <div class="avaliacao">
+            <div class="stars">★★★★☆</div>
+            <h3>Pack de 10 calças</h3>
+            <p>Boa mistura de calças carhartt e dickies de diferentes estilos. A maioria veio em bom estado, mas uma ou
+              outra peça precisei
+              de passar a ferro.</p>
+            <strong>Jorge G.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★<span class="half">★</span></div>
+            <h3>5kg de Polos</h3>
+            <p>Polos variados, com muitos tamanhos M e L como pedi. A entrega foi pontual.
+              No geral, satisfeito.</p><strong>João V.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>Pack de 20 sweats vintage</h3>
+            <p>Comprei para revenda online e compensou bastante. Peças com diferentes cores,
+              muito bom.</p>
+            <strong>Marta T.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★☆</div>
+            <h3>Encomenda de 6kg de mix combo</h3>
+            <p>Chegou rápido e bem organizado. Algumas peças precisei de lavar e passar a ferro, mas o
+              pacote valeu sem dúvida.</p>
+            <strong>Hugo R.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>10kg de roupa para loja física</h3>
+            <p>Já é a segunda vez que encomendo. A seleção corresponde ao que anunciam e facilita muito o
+              reabastecimento. Peças em excelente estado.</p><strong>Sofia M.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★<span class="half">★</span></div>
+            <h3>7kg de casacos vintage</h3>
+            <p>Peças mais largas e com bom caimento como pedimos. A seleção vintage é top para quem procura um estilo
+              mais único. O atendimento deles é muito bom, sobretudo pela videochamada antes.</p>
+            <strong>Pedro D.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★☆</div>
+            <h3>Compramos 30 camisolas da Polo para revenda </h3>
+            <p>Boa diversidade de padrões e cores, e as peças estavam em bom estado geral. O stock ajudou muito nas
+              vendas.</p><strong>Cátia S.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>5kg de roupa masculina</h3>
+            <p>Pedi só homem e veio mesmo tudo nesse estilo. Muitos básicos e peças versáteis fáceis de vender. Clientes
+              satisfeitos!</p>
+            <strong>André F.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★☆</div>
+            <h3>Recebi 10 peças de vestuário variado</h3>
+            <p>Encomenda sem surpresas, tudo dentro do que é descrito. </p>
+            <strong>Raquel L.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>Pack de 8kg de camisolas</h3>
+            <p>Excelente variedade de tamanhos e estilos. Consegui uma boa margem em todas as peças. Vou voltar a
+              comprar de certeza.</p>
+            <strong>Diogo N.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★<span class="half">★</span></div>
+            <h3>10 peças de denim</h3>
+            <p>As peças de ganga vieram em ótimo estado, com bons cortes. Apenas uma peça tinha um pequeno detalhe que
+              precisei de arranjar.</p>
+            <strong>Ana C.</strong>
+          </div>
+
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>Bom mix de T-shirts</h3>
+            <p>Achei que viesse mais do mesmo, mas recebi uma boa variedade de cores e tamanhos. Já vendi quase tudo e
+              tive boa margem.
+            </p><strong>Fábio L.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★☆</div>
+            <h3>Pack de 12 calças</h3>
+            <p>Boa mistura de marcas e estilos. A maioria veio em bom estado para loja, mas uma ou outra peça precisou
+              de um pequeno retoque. As carhartt são tops mesmo.</p>
+            <strong>Inês G.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★<span class="half">★</span></div>
+            <h3>5kg de Polos</h3>
+            <p>Polos variados, com muitos tamanhos M e L como pedi. A entrega foi pontual. Gostaria de mais alguns de
+              marca, mas no geral, satisfeito.</p><strong>João V.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>Pack de 20 sweatshirts</h3>
+            <p>Comprei para revenda online e compensou bastante. Peças consistentes, com boa procura e
+              aumentei assim bastante todo o meu stock.</p>
+            <strong>Marta T.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★☆</div>
+            <h3>Encomenda de 6kg de roupa mista</h3>
+            <p>Chegou rápido. Achei o atendimento muito bom da parte deles
+              , porque consegui ver tudo o que chegou antes de pagar.</p>
+            <strong>Hugo R.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>10kg de roupa para loja física</h3>
+            <p>São uns ótimos fornecedores, pois não é a primeira nem segunda vez que encomendo. A seleção corresponde
+              exatamente ao que eu peço sempre.
+              Peças em excelente estado.</p><strong>Sofia M.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★<span class="half">★</span></div>
+            <h3>7kg de casacos vintage</h3>
+            <p>Peças mais largas e com bom caimento como pedimos. A seleção vintage é top para quem procura um estilo
+              mais único, algumas peças são verdadeiras joias.</p>
+            <strong>Pedro D.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★☆</div>
+            <h3>Comprámos 30 camisas para feira</h3>
+            <p>Boa diversidade de padrões e cores, e as peças estavam em bom estado geral. O stock ajudou muito nas
+              vendas do fim de semana, mas algumas cores eram mais difíceis de escoar.</p><strong>Cátia S.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>5kg de roupa masculina</h3>
+            <p>Pedi só homem e veio mesmo tudo nesse estilo. Muitos básicos e peças versáteis fáceis de vender. Clientes
+              satisfeitos!</p>
+            <strong>André F.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★☆</div>
+            <h3>Recebi 15 peças de vestuário variado</h3>
+            <p>Encomenda sem surpresas, tudo dentro do que é descrito. Útil para quem está a começar no negócio, embora
+              algumas peças fossem um pouco comuns.</p>
+            <strong>Raquel L.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>Pack de 8kg de camisolas</h3>
+            <p>Excelente variedade de tamanhos e estilos. Consegui uma boa margem em todas as peças. Vou voltar a
+              comprar de certeza.</p>
+            <strong>Diogo N.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★<span class="half">★</span></div>
+            <h3>10 peças de denim</h3>
+            <p>As peças de ganga vieram em ótimo estado, com bons cortes. Apenas uma peça tinha um pequeno detalhe que
+              precisei de arranjar.</p>
+            <strong>Ana C.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>Bom mix de T-shirts</h3>
+            <p>Achei que viesse mais do mesmo, mas recebi uma boa variedade de cores e tamanhos. Já vendi quase tudo e
+              tive boa margem.
+            </p><strong>Fábio L.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★☆</div>
+            <h3>Pack de 10 calças</h3>
+            <p>Boa mistura de calças carhartt e dickies de diferentes estilos. A maioria veio em bom estado, mas uma ou
+              outra peça precisei
+              de passar a ferro.</p>
+            <strong>Jorge G.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★<span class="half">★</span></div>
+            <h3>5kg de Polos</h3>
+            <p>Polos variados, com muitos tamanhos M e L como pedi. A entrega foi pontual.
+              No geral, satisfeito.</p><strong>João V.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>Pack de 20 sweats vintage</h3>
+            <p>Comprei para revenda online e compensou bastante. Peças com diferentes cores,
+              muito bom.</p>
+            <strong>Marta T.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★☆</div>
+            <h3>Encomenda de 6kg de mix combo</h3>
+            <p>Chegou rápido e bem organizado. Algumas peças precisei de lavar e passar a ferro, mas o
+              pacote valeu sem dúvida.</p>
+            <strong>Hugo R.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>10kg de roupa para loja física</h3>
+            <p>Já é a segunda vez que encomendo. A seleção corresponde ao que anunciam e facilita muito o
+              reabastecimento. Peças em excelente estado.</p><strong>Sofia M.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★<span class="half">★</span></div>
+            <h3>7kg de casacos vintage</h3>
+            <p>Peças mais largas e com bom caimento como pedimos. A seleção vintage é top para quem procura um estilo
+              mais único. O atendimento deles é muito bom, sobretudo pela videochamada antes.</p>
+            <strong>Pedro D.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★☆</div>
+            <h3>Comprámos 30 camisolas da Polo para revenda </h3>
+            <p>Boa diversidade de padrões e cores, e as peças estavam em bom estado geral. O stock ajudou muito nas
+              vendas.</p><strong>Cátia S.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>5kg de roupa masculina</h3>
+            <p>Pedi só homem e veio mesmo tudo nesse estilo. Muitos básicos e peças versáteis fáceis de vender. Clientes
+              satisfeitos!</p>
+            <strong>André F.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★☆</div>
+            <h3>Recebi 10 peças de vestuário variado</h3>
+            <p>Encomenda sem surpresas, tudo dentro do que é descrito. </p>
+            <strong>Raquel L.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>Pack de 8kg de camisolas</h3>
+            <p>Excelente variedade de tamanhos e estilos. Consegui uma boa margem em todas as peças. Vou voltar a
+              comprar de certeza.</p>
+            <strong>Diogo N.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★<span class="half">★</span></div>
+            <h3>10 peças de denim</h3>
+            <p>As peças de ganga vieram em ótimo estado, com bons cortes. Apenas uma peça tinha um pequeno detalhe que
+              precisei de arranjar.</p>
+            <strong>Ana C.</strong>
+          </div>
+
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>Bom mix de T-shirts</h3>
+            <p>Achei que viesse mais do mesmo, mas recebi uma boa variedade de cores e tamanhos. Já vendi quase tudo e
+              tive boa margem.
+            </p><strong>Fábio L.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★☆</div>
+            <h3>Pack de 12 calças</h3>
+            <p>Boa mistura de marcas e estilos. A maioria veio em bom estado para loja, mas uma ou outra peça precisou
+              de um pequeno retoque. As carhartt são tops mesmo.</p>
+            <strong>Inês G.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★<span class="half">★</span></div>
+            <h3>5kg de Polos</h3>
+            <p>Polos variados, com muitos tamanhos M e L como pedi. A entrega foi pontual. Gostaria de mais alguns de
+              marca, mas no geral, satisfeito.</p><strong>João V.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>Pack de 20 sweatshirts</h3>
+            <p>Comprei para revenda online e compensou bastante. Peças consistentes, com boa procura e
+              aumentei assim bastante todo o meu stock.</p>
+            <strong>Marta T.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★☆</div>
+            <h3>Encomenda de 6kg de roupa mista</h3>
+            <p>Chegou rápido. Achei o atendimento muito bom da parte deles
+              , porque consegui ver tudo o que chegou antes de pagar.</p>
+            <strong>Hugo R.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>10kg de roupa para loja física</h3>
+            <p>São uns ótimos fornecedores, pois não é a primeira nem segunda vez que encomendo. A seleção corresponde
+              exatamente ao que eu peço sempre.
+              Peças em excelente estado.</p><strong>Sofia M.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★<span class="half">★</span></div>
+            <h3>7kg de casacos vintage</h3>
+            <p>Peças mais largas e com bom caimento como pedimos. A seleção vintage é top para quem procura um estilo
+              mais único, algumas peças são verdadeiras joias.</p>
+            <strong>Pedro D.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★☆</div>
+            <h3>Comprámos 30 camisas para feira</h3>
+            <p>Boa diversidade de padrões e cores, e as peças estavam em bom estado geral. O stock ajudou muito nas
+              vendas do fim de semana, mas algumas cores eram mais difíceis de escoar.</p><strong>Cátia S.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>5kg de roupa masculina</h3>
+            <p>Pedi só homem e veio mesmo tudo nesse estilo. Muitos básicos e peças versáteis fáceis de vender. Clientes
+              satisfeitos!</p>
+            <strong>André F.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★☆</div>
+            <h3>Recebi 15 peças de vestuário variado</h3>
+            <p>Encomenda sem surpresas, tudo dentro do que é descrito. Útil para quem está a começar no negócio, embora
+              algumas peças fossem um pouco comuns.</p>
+            <strong>Raquel L.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>Pack de 8kg de camisolas</h3>
+            <p>Excelente variedade de tamanhos e estilos. Consegui uma boa margem em todas as peças. Vou voltar a
+              comprar de certeza.</p>
+            <strong>Diogo N.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★<span class="half">★</span></div>
+            <h3>10 peças de denim</h3>
+            <p>As peças de ganga vieram em ótimo estado, com bons cortes. Apenas uma peça tinha um pequeno detalhe que
+              precisei de arranjar.</p>
+            <strong>Ana C.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>Bom mix de T-shirts</h3>
+            <p>Achei que viesse mais do mesmo, mas recebi uma boa variedade de cores e tamanhos. Já vendi quase tudo e
+              tive boa margem.
+            </p><strong>Fábio L.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★☆</div>
+            <h3>Pack de 10 calças</h3>
+            <p>Boa mistura de calças carhartt e dickies de diferentes estilos. A maioria veio em bom estado, mas uma ou
+              outra peça precisei
+              de passar a ferro.</p>
+            <strong>Jorge G.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★<span class="half">★</span></div>
+            <h3>5kg de Polos</h3>
+            <p>Polos variados, com muitos tamanhos M e L como pedi. A entrega foi pontual.
+              No geral, satisfeito.</p><strong>João V.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>Pack de 20 sweats vintage</h3>
+            <p>Comprei para revenda online e compensou bastante. Peças com diferentes cores,
+              muito bom.</p>
+            <strong>Marta T.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★☆</div>
+            <h3>Encomenda de 6kg de mix combo</h3>
+            <p>Chegou rápido e bem organizado. Algumas peças precisei de lavar e passar a ferro, mas o
+              pacote valeu sem dúvida.</p>
+            <strong>Hugo R.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>10kg de roupa para loja física</h3>
+            <p>Já é a segunda vez que encomendo. A seleção corresponde ao que anunciam e facilita muito o
+              reabastecimento. Peças em excelente estado.</p><strong>Sofia M.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★<span class="half">★</span></div>
+            <h3>7kg de casacos vintage</h3>
+            <p>Peças mais largas e com bom caimento como pedimos. A seleção vintage é top para quem procura um estilo
+              mais único. O atendimento deles é muito bom, sobretudo pela videochamada antes.</p>
+            <strong>Pedro D.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★☆</div>
+            <h3>Comprámos 30 camisolas da Polo para revenda </h3>
+            <p>Boa diversidade de padrões e cores, e as peças estavam em bom estado geral. O stock ajudou muito nas
+              vendas.</p><strong>Cátia S.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>5kg de roupa masculina</h3>
+            <p>Pedi só homem e veio mesmo tudo nesse estilo. Muitos básicos e peças versáteis fáceis de vender. Clientes
+              satisfeitos!</p>
+            <strong>André F.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★☆</div>
+            <h3>Recebi 10 peças de vestuário variado</h3>
+            <p>Encomenda sem surpresas, tudo dentro do que é descrito. </p>
+            <strong>Raquel L.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>Pack de 8kg de camisolas</h3>
+            <p>Excelente variedade de tamanhos e estilos. Consegui uma boa margem em todas as peças. Vou voltar a
+              comprar de certeza.</p>
+            <strong>Diogo N.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★<span class="half">★</span></div>
+            <h3>10 peças de denim</h3>
+            <p>As peças de ganga vieram em ótimo estado, com bons cortes. Apenas uma peça tinha um pequeno detalhe que
+              precisei de arranjar.</p>
+            <strong>Ana C.</strong>
+          </div>
+
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>Bom mix de T-shirts</h3>
+            <p>Achei que viesse mais do mesmo, mas recebi uma boa variedade de cores e tamanhos. Já vendi quase tudo e
+              tive boa margem.
+            </p><strong>Fábio L.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★☆</div>
+            <h3>Pack de 12 calças</h3>
+            <p>Boa mistura de marcas e estilos. A maioria veio em bom estado para loja, mas uma ou outra peça precisou
+              de um pequeno retoque. As carhartt são tops mesmo.</p>
+            <strong>Inês G.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★<span class="half">★</span></div>
+            <h3>5kg de Polos</h3>
+            <p>Polos variados, com muitos tamanhos M e L como pedi. A entrega foi pontual. Gostaria de mais alguns de
+              marca, mas no geral, satisfeito.</p><strong>João V.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>Pack de 20 sweatshirts</h3>
+            <p>Comprei para revenda online e compensou bastante. Peças consistentes, com boa procura e
+              aumentei assim bastante todo o meu stock.</p>
+            <strong>Marta T.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★☆</div>
+            <h3>Encomenda de 6kg de roupa mista</h3>
+            <p>Chegou rápido. Achei o atendimento muito bom da parte deles
+              , porque consegui ver tudo o que chegou antes de pagar.</p>
+            <strong>Hugo R.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>10kg de roupa para loja física</h3>
+            <p>São uns ótimos fornecedores, pois não é a primeira nem segunda vez que encomendo. A seleção corresponde
+              exatamente ao que eu peço sempre.
+              Peças em excelente estado.</p><strong>Sofia M.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★<span class="half">★</span></div>
+            <h3>7kg de casacos vintage</h3>
+            <p>Peças mais largas e com bom caimento como pedimos. A seleção vintage é top para quem procura um estilo
+              mais único, algumas peças são verdadeiras joias.</p>
+            <strong>Pedro D.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★☆</div>
+            <h3>Comprámos 30 camisas para feira</h3>
+            <p>Boa diversidade de padrões e cores, e as peças estavam em bom estado geral. O stock ajudou muito nas
+              vendas do fim de semana, mas algumas cores eram mais difíceis de escoar.</p><strong>Cátia S.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>5kg de roupa masculina</h3>
+            <p>Pedi só homem e veio mesmo tudo nesse estilo. Muitos básicos e peças versáteis fáceis de vender. Clientes
+              satisfeitos!</p>
+            <strong>André F.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★☆</div>
+            <h3>Recebi 15 peças de vestuário variado</h3>
+            <p>Encomenda sem surpresas, tudo dentro do que é descrito. Útil para quem está a começar no negócio, embora
+              algumas peças fossem um pouco comuns.</p>
+            <strong>Raquel L.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★★</div>
+            <h3>Pack de 8kg de camisolas</h3>
+            <p>Excelente variedade de tamanhos e estilos. Consegui uma boa margem em todas as peças. Vou voltar a
+              comprar de certeza.</p>
+            <strong>Diogo N.</strong>
+          </div>
+          <div class="avaliacao">
+            <div class="stars">★★★★<span class="half">★</span></div>
+            <h3>10 peças de denim</h3>
+            <p>As peças de ganga vieram em ótimo estado, com bons cortes. Apenas uma peça tinha um pequeno detalhe que
+              precisei de arranjar.</p>
+            <strong>Ana C.</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const carrossel = document.getElementById("carrossel");
+    const avaliacoes = carrossel.querySelectorAll(".avaliacao");
+
+    function updateActiveCard() {
+      const center = window.innerWidth / 2;
+      let closestCard = null;
+      let closestDistance = Infinity;
+
+      avaliacoes.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const cardCenter = rect.left + rect.width / 2;
+        const distance = Math.abs(center - cardCenter);
+
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestCard = card;
+        }
+
+        card.classList.remove("active");
+      });
+
+      if (closestCard) closestCard.classList.add("active");
+    }
+
+    setInterval(updateActiveCard, 200);
+  </script>
+  <script>
+    let isDragging = false;
+    let startX;
+    let scrollLeft;
+    let animationPaused = false;
+    const carrosselContainer = document.getElementById("carrossel-container");
+
+    // Parar animação
+    function pauseAnimation() {
+      carrossel.style.animationPlayState = 'paused';
+      animationPaused = true;
+    }
+
+    // Retomar animação
+    function resumeAnimation() {
+      if (animationPaused) {
+        carrossel.style.animationPlayState = 'running';
+        animationPaused = false;
+      }
+    }
+
+    // Touch + Mouse drag
+    carrosselContainer.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startX = e.pageX - carrosselContainer.offsetLeft;
+      scrollLeft = carrosselContainer.scrollLeft;
+      pauseAnimation(); // Pausa a animação ao começar a arrastar
+    });
+
+    // Ao levantar o rato ou dedo (fim do arrasto)
+    carrosselContainer.addEventListener('mouseup', () => {
+      isDragging = false;
+      resumeAnimation(); // Retoma a animação imediatamente
+    });
+
+    carrosselContainer.addEventListener('touchend', () => {
+      isDragging = false;
+      resumeAnimation(); // Retoma a animação imediatamente
+    });
+
+    // Se o rato sair do container enquanto arrasta, para de arrastar e retoma após um pequeno delay
+    carrosselContainer.addEventListener('mouseleave', () => {
+      if (isDragging) { // Só pausa se estivermos a arrastar
+        isDragging = false;
+        setTimeout(resumeAnimation, 1000); // Dá um pequeno tempo antes de retomar, caso o utilizador volte
+      }
+    });
+
+
+    carrosselContainer.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const x = e.pageX - carrosselContainer.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      carrosselContainer.scrollLeft = scrollLeft - walk;
+    });
+
+    // Suporte a touch
+    carrosselContainer.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      startX = e.touches[0].pageX - carrosselContainer.offsetLeft;
+      scrollLeft = carrosselContainer.scrollLeft;
+      pauseAnimation(); // Pausa a animação ao começar a tocar
+    });
+
+    carrosselContainer.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      const x = e.touches[0].pageX - carrosselContainer.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      carrosselContainer.scrollLeft = scrollLeft - walk;
+    });
+  </script>
+
+</body>
+
+</html></div></div></div></div></div></div></div></div></div><script>
+    !function(){
+      window.__pagefly_page_setting__ = {"pageTitle":"Landing Page","pageType":"home","pageId":"6bad1295-a374-458d-8300-e9a7498ca875","lazyLoad":true,"forceByPassGoogleLightHouse":false,"imageLazyLoad":true,"nativeImageLazyLoad":true,"useThemeJQ":false,"sectionRootType":"Section","trackingIDs":[]};
+      window.__pagefly_setting__&&(window.__pagefly_setting2__=window.__pagefly_setting__),window.__pagefly_setting__={"baseURL":"https://apps.pagefly.io","analyticsURL":"https://analytics.pagefly.io","isBackend":false,"cdnURL":"https://cdn.pagefly.io","pageflyVersion":"4.24.2","shopDomain":"pbg6dr-x0.myshopify.com","elementData":{},"shopifyProxyPath":"/apps/pagefly"},window.__pagefly_setting2__&&(window.__pagefly_setting__=function _(d,b){let c={...d||{}};for(let a of Object.keys(b))b[a]instanceof Object&&(Array.isArray(b[a])&&c[a]?Object.assign(b[a],[...b[a],...c[a]]):Object.assign(b[a],_(c[a],b[a])));return Object.assign(c||{},b),c}(__pagefly_setting2__,__pagefly_setting__),delete window.__pagefly_setting2__),window.__pagefly_setting__.moneyFormat={{shop.money_format|json}}}();
+    </script>
+{% schema %}
+{
+  "name": "PageFly Home Page",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "For full configuration, [visit PageFly Editor](https://pbg6dr-x0.myshopify.com/admin/apps/pagefly/editor?id=6bad1295-a374-458d-8300-e9a7498ca875&type=home)."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ]
+}
+{% endschema %}

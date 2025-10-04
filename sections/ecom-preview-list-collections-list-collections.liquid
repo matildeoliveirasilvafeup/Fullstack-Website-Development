@@ -1,0 +1,371 @@
+{% comment %}
+ EComposer (https://ecomposer.io)
+ You SHOULD NOT modify source code in this page because
+ It is automatically generated from EComposer
+ At 2025-09-18 11:23:04
+ {% endcomment %} 
+ 
+ {% assign ecom_root_url = routes.root_url %}
+ 
+ {% if ecom_root_url != '/'%}
+ {% assign ecom_root_url = routes.root_url | append: '/' %}
+ {% endif %}
+ <link rel="stylesheet" media="print" onload="this.media='all'" id="ecom-vendors-slider_css" href="https://cdn.ecomposer.app/vendors/css/ecom-swiper@11.css" /><link rel="stylesheet" media="print" onload="this.media='all'" id="ecom-vendors-modal_css" href="https://cdn.ecomposer.app/vendors/css/ecom_modal.css" /><link rel="stylesheet" media="all" id="ecom-vendors-css_ecomposer_base" href="https://cdn.ecomposer.app/vendors/css/ecom-base.css?v=1.9" /><noscript><link rel="stylesheet" media="all" onload="this.media='all'" id="ecom-vendors-slider_css" href="https://cdn.ecomposer.app/vendors/css/ecom-swiper@11.css" /><link rel="stylesheet" media="all" onload="this.media='all'" id="ecom-vendors-modal_css" href="https://cdn.ecomposer.app/vendors/css/ecom_modal.css" /><link rel="stylesheet" media="all" id="ecom-vendors-css_ecomposer_base" href="https://cdn.ecomposer.app/vendors/css/ecom-base.css?v=1.9" /></noscript><script type="text/javascript" asyc="async" id="ecom-vendors-slider_js" src="https://cdn.ecomposer.app/vendors/js/ecom-swiper@11.0.5.js" ></script><script type="text/javascript" asyc="async" id="ecom-vendors-modal_js" src="https://cdn.ecomposer.app/vendors/js/ecom_modal_new.js" ></script>
+{%- assign headless = true -%}{%- render "ecom_theme_helper" -%}{%capture section_id %}ecom-preview-list-collections-list-collections{% endcapture%}{% if section and section_id == section.id and headless == true %}
+{{ content_for_header }}
+{% render 'ecom_header', ECOM_THEME: true %}{% endif %}<link href="https://fonts.googleapis.com/css?family=Manrope:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css?family=Kanit:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet"/>
+{{'ecom-preview-template-list-collections.css' | asset_url | stylesheet_tag }}
+<script src="{{'ecom-preview-template-list-collections.js' | asset_url }}" defer="defer"></script>
+<script type="text/javascript" class="ecom-page-info">
+ window.EComposer = window.EComposer || {};
+ window.EComposer.TEMPLATE_ID="preview-template-list-collections";
+ window.EComposer.TEMPLATE = {"template_id":"preview-template-list-collections","title":"catalogo","type":"list-collections","slug":"ecom-preview-list-collections","plan_id":1};
+ </script>
+<div class="ecom-builder" id="ecom-preview-list-collections"><div class="ecom-sections" data-section-id="{{section.id}}"><section class="ecom-row ecom-core ecom-section ecom-e114gxtelfu" data-id="ecom-e114gxtelfu" style="z-index: inherit;"><div data-deep="1" class="core__row--columns"><div class="ecom-column ecom-core ecom-izngf6oc9u"><div class="core__column--wrapper"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks" index="0"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-l3c8ee80rsd" data-core-is="block"><div class="ecom__element ecom-element element__code exporting" deep="1"><!DOCTYPE html>
+<html lang="pt">
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+ <title>Categorias Corrigidas</title>
+ <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+ <style>
+ /* Estilos Gerais e Reset */
+ * {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ }
+
+ body {
+ font-family: Arial, sans-serif;
+ }
+
+ .categorias-container {
+ max-width: 100vw; /* Remove a margem lateral */
+ width: 100%;
+ margin: 0 auto;
+ padding: 10px 0; /* Remove padding lateral */
+ font-family: Arial, sans-serif;
+ }
+
+ .categorias-titulo {
+ text-align: center;
+ font-size: 45px;
+ font-weight: 900;
+ color: #FFD700;
+ text-shadow: -1px -1px 0 #000,
+ 1px -1px 0 #000,
+ -1px 1px 0 #000,
+ 1px 1px 0 #000;
+ margin-bottom: 40px;
+ margin-top: 0;
+ }
+
+ .categorias-grid {
+ display: grid;
+ grid-template-columns: repeat(3, 1fr);
+ gap: 0; /* Alterado para 0 para eliminar espaços entre os itens */
+ }
+
+ .categoria-item {
+ width: 100%;
+ max-width: 100%;
+ aspect-ratio: 1 / 1;
+ position: relative;
+ overflow: hidden;
+ cursor: pointer;
+ transition: transform 0.3s ease;
+ display: block;
+ }
+
+ /* Efeito de zoom ao passar o mouse */
+ .categoria-item:hover .categoria-img {
+ transform: scale(1.1);
+ }
+
+ .categoria-img {
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ transition: transform 0.3s ease;
+ }
+
+ .categoria-texto {
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%);
+ background: none;
+ color: white;
+ font-weight: bold;
+ font-size: 60px;
+ text-align: center;
+ z-index: 2;
+ text-shadow: 0 0 5px black;
+ padding: 0 10px;
+ /* Para o texto de múltiplas linhas */
+ white-space: nowrap; /* Impede quebras de linha indesejadas */
+ line-height: 1.2; /* Ajusta o espaçamento entre linhas */
+ }
+
+ .categoria-texto br {
+ display: block;
+ content: "";
+ margin-top: -0.2em; /* Ajusta o espaçamento da quebra de linha */
+ }
+
+
+ .categoria-texto::after {
+ content: "";
+ display: block;
+ height: 6px;
+ background-color: #FFD700;
+ margin: 6px auto 0;
+ width: fit-content;
+ padding: 0 20px;
+ border-radius: 5px;
+ }
+
+ .categoria-item:active .categoria-texto {
+ color: #FFD700;
+ /* Cor ao clicar */
+ }
+
+ /* Estilos para a mudança de cor com o cursor */
+ .categoria-item:hover .categoria-texto {
+ color: #FFD700;
+ }
+
+ /* Media query para dispositivos menores */
+ @media (max-width: 1024px) {
+ .categorias-grid {
+ grid-template-columns: repeat(2, 1fr);
+ /* 2 categorias por linha */
+ }
+ }
+
+ /* Media query para dispositivos pequenos */
+ @media (max-width: 600px) {
+ .categorias-titulo {
+ font-size: 45px;
+ }
+
+ .categoria-texto {
+ font-size: 60px;
+ }
+
+ .categorias-grid {
+ grid-template-columns: 1fr;
+ /* 1 categoria por linha */
+ }
+ }
+ </style>
+</head>
+
+<body>
+
+ <div class="categorias-container">
+ <h2 class="categorias-titulo">COMPRAR POR CATEGORIA</h2>
+ <div class="categorias-grid">
+ <a href="https://droplawi.com/collections/todos-os-artigos" class="categoria-item">
+ <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/combo.jpg?v=1745593662&width=450" alt="TUDO" class="categoria-img">
+ <div class="categoria-texto">TUDO</div>
+ </a>
+
+ <a href="https://droplawi.com/collections/mix-pack-s-reseller" class="categoria-item">
+ <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/esta_casacos_834e4466-7970-4f9e-9dc8-10344755ef33.jpg?v=1751463633" alt="CASACOS" class="categoria-img">
+ <div class="categoria-texto">CASACOS</div>
+ </a>
+
+ <a href="https://droplawi.com/collections/kilos" class="categoria-item">
+ <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/kilos_af420bfe-e065-47d8-be95-94632d304d38.jpg?v=1751464179" alt="KILOS" class="categoria-img">
+ <div class="categoria-texto">KILOS</div>
+ </a>
+
+ <a href="https://droplawi.com/collections/mix-combos" class="categoria-item">
+ <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/IMG_2154.webp?v=1751220366" alt="COMBOS" class="categoria-img">
+ <div class="categoria-texto">COMBOS</div>
+ </a>
+
+ <a href="https://droplawi.com/collections/polos-tommy" class="categoria-item">
+ <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/polos.jpg?v=1745581991&width=450" alt="POLOS" class="categoria-img">
+ <div class="categoria-texto">POLOS</div>
+ </a>
+
+ <a href="https://droplawi.com/collections/casacos" class="categoria-item">
+ <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/IMG_7855.jpg?v=1745581310&width=450" alt="SWEATERS" class="categoria-img">
+ <div class="categoria-texto">SWEATS</div>
+ </a>
+
+ <a href="https://droplawi.com/collections/camisolas" class="categoria-item">
+ <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/tshirts.jpg?v=1751660658" alt="T-SHIRTS" class="categoria-img">
+ <div class="categoria-texto">TSHIRTS</div> </a>
+
+ <a href="https://droplawi.com/collections/calcas" class="categoria-item">
+ <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/calcas_58e3584c-f770-49c6-8b1d-1b8e01c379ae.jpg?v=1745581503&width=450" alt="CALÇAS" class="categoria-img">
+ <div class="categoria-texto">CALÇAS</div>
+ </a>
+
+ <a href="https://droplawi.com/collections/last-chance" class="categoria-item">
+ <img src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/lastchance.jpg?v=1745593833&width=450" alt="LAST CHANCE" class="categoria-img">
+ <div class="categoria-texto">LAST<br> CHANCE</div>
+ </a>
+
+ </div>
+ </div>
+
+</body>
+</html></div></div> </div></div></div></div> </div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> </section><section class="ecom-row ecom-core ecom-section ecom-2lo34cunwbb" data-id="ecom-2lo34cunwbb" style="z-index: inherit;"><div data-deep="1" class="core__row--columns core__row--full"><div class="ecom-column ecom-core ecom-tdj637xhs7"><div class="core__column--wrapper"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks" index="0"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-olgsz1nb6cc" data-core-is="group"><div class="ecom-elements ecom-base-element ecom-elements-slider"><div class="ecom-core ecom-group core__block ecom-6bubxvuv0w"> <div class="core__group--wrapper" data-r="" style=""><div class="ecom-slider--container"><div class="ecom-element ecom-slider slider__body ecom-swiper-container ecom-slider-not-custom-height" data-option-swiper="{&quot;direction&quot;:&quot;horizontal&quot;,&quot;freeMode&quot;:false,&quot;loop&quot;:false,&quot;breakpoints&quot;:{&quot;0&quot;:{},&quot;768&quot;:{&quot;slidesPerView&quot;:1},&quot;1025&quot;:{&quot;slidesPerView&quot;:1}},&quot;autoplay&quot;:{&quot;enabled&quot;:false,&quot;delay&quot;:6000,&quot;pauseOnMouseEnter&quot;:false,&quot;disableOnInteraction&quot;:false,&quot;reverseDirection&quot;:false},&quot;speed&quot;:500,&quot;effect&quot;:&quot;slide&quot;,&quot;grabCursor&quot;:true,&quot;slideActiveClass&quot;:&quot;ecom-box-active&quot;,&quot;centeredSlides&quot;:false,&quot;watchOverflow&quot;:true,&quot;autoHeight&quot;:true,&quot;cubeEffect&quot;:{&quot;slideShadows&quot;:true,&quot;shadowOffset&quot;:20},&quot;creativeEffect&quot;:{},&quot;fadeEffect&quot;:{&quot;crossFade&quot;:true},&quot;pagination&quot;:{&quot;el&quot;:&quot;.ecom-swiper-pagination&quot;,&quot;type&quot;:&quot;bullets&quot;,&quot;clickable&quot;:true},&quot;navigation&quot;:{&quot;nextEl&quot;:&quot;.ecom-swiper-button-next&quot;,&quot;prevEl&quot;:&quot;.ecom-swiper-button-prev&quot;},&quot;slidesPerGroup&quot;:1}"><div class="ecom-swiper-wrapper"><div class="ecom-swiper-slide"><div class="ecom-content-item"><div class="ecom-slider__image--wrapper" data-id="ecom-svv8gciw8uo"><picture class="ecom-image-background"><img fetchpriority="high" loading="eager" src="https://cdn.shopify.com/s/files/1/0726/1221/7115/files/ecom-no-replace-qZBiPB4zxCsl-fn-1.jpg?v=1755844583" name="ecom-no-replace-qZBiPB4zxCsl-fn-1" ext="png" url="https://cdn.shopify.com/s/files/1/0781/3424/7729/files/bg-slider.png?v=1691390013&amp;ecom-need-replace" thumbnail="https://cdn.shopify.com/s/files/1/0726/1221/7115/files/ecom-no-replace-qZBiPB4zxCsl-fn-1.jpg?v=1755844583" alt="bg-slider" width="2000" height="1079" style="--ecom-object-fit:cover;--ecom-object-fit-tablet:cover;--ecom-object-fit-mobile:cover;"></picture><div class="ecom-overlay"><span>overlay</span></div></div><div class="ecom-content-item__container ecom-transition-Bottom2Top"><div class="core__blocks" index="0"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-2b75cc5ms9f" data-core-is="row"><div class="ecom-row ecom-core core__block ecom-w0sntevchk" data-id="ecom-w0sntevchk" style="z-index: inherit;"><div data-deep="2" class="core__row--columns"><div class="ecom-column ecom-core ecom-365u68eb1m5"><div class="core__column--wrapper"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks" index="0"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-qji61e1rw5" data-core-is="block"><div class="ecom-row ecom-core core__block ecom-433xblsbaaw" data-id="ecom-433xblsbaaw" style="z-index: inherit;"><div data-deep="3" class="core__row--columns"></div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> </div></div> </div></div></div></div> </div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> </div></div> </div></div></div></div></div><div class="ecom-swiper-slide"><div class="ecom-content-item"><div class="ecom-slider__image--wrapper" data-id="ecom-z4hs0v1fmei"><picture class="ecom-image-background"><img loading="lazy" fetchpriority="low" src="https://cdn.shopify.com/s/files/1/0726/1221/7115/files/ecom-no-replace-vzNVmsZF4vsl-fn-2-2.jpg?v=1755845956" name="ecom-no-replace-vzNVmsZF4vsl-fn-2-2" ext="png" url="https://cdn.shopify.com/s/files/1/0781/3424/7729/files/bg-slider.png?v=1691390013&amp;ecom-need-replace" thumbnail="https://cdn.shopify.com/s/files/1/0726/1221/7115/files/ecom-no-replace-vzNVmsZF4vsl-fn-2-2.jpg?v=1755845956" alt="bg-slider" width="2000" height="988" id="Efi8x4UR" style="--ecom-object-fit:cover;--ecom-object-fit-tablet:cover;--ecom-object-fit-mobile:cover;"></picture><div class="ecom-overlay"><span>overlay</span></div></div><div class="ecom-content-item__container ecom-transition-Bottom2Top"><div class="core__blocks" index="1"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-8b0bbq5bc2i" data-core-is="row"><div class="ecom-row ecom-core core__block ecom-kioe17avrpr" data-id="ecom-kioe17avrpr" style="z-index: inherit;"><div data-deep="2" class="core__row--columns"><div class="ecom-column ecom-core ecom-y3kvm8q3ay"><div class="core__column--wrapper"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks" index="0"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-jghwk8pe5fc" data-core-is="block"><div class="ecom-row ecom-core core__block ecom-p0jost1tgpa" data-id="ecom-p0jost1tgpa" style="z-index: inherit;"><div data-deep="3" class="core__row--columns"><div class="ecom-column ecom-core ecom-33wixcijk65"><div class="core__column--wrapper"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks" index="0"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-39nb6l9etgr" data-core-is="block"><div class="ecom__element element__heading ecom-element ecom-html" data-stopdrag="true" deep="3"><h2 class="ecom__heading ecom-db">Less, <div>But Better</div></h2></div></div> <div class="ecom-block ecom-core core__block ecom-eya9mv96y77" data-core-is="block"><div class="ecom__element ecom-element element__text" data-stopdrag="" deep="3"><div class="text-content ecom-html has-drop-cap-view-framed">Minimalist pieces made for modern living.</div></div></div> <div class="ecom-block ecom-core core__block ecom-iyvz6z0oe3j" data-core-is="block"><div class="ecom__element ecom-element-button ecom-button-default" deep="3"><a class="ecom__element--button ecom-flex ecom-fl_center ecom-al_center" href="#"><span class="ecom__element--button-icon-text">Browse The Collection</span><span class="ecom-button-icon ecom__element--button-icon"></span></a></div></div> </div></div></div></div> </div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> </div></div> </div></div></div></div> </div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> </div></div> </div></div></div></div></div><div class="ecom-swiper-slide"><div class="ecom-content-item"><div class="ecom-slider__image--wrapper" data-id="ecom-9x99xkplnws"><picture class="ecom-image-background"><img loading="lazy" fetchpriority="low" src="https://cdn.shopify.com/s/files/1/0726/1221/7115/files/ecom-no-replace-A3LjFMKzsZsl-fn-3.jpg?v=1755845996" name="ecom-no-replace-A3LjFMKzsZsl-fn-3" ext="png" url="https://cdn.shopify.com/s/files/1/0781/3424/7729/files/bg-slider.png?v=1691390013&amp;ecom-need-replace" thumbnail="https://cdn.shopify.com/s/files/1/0726/1221/7115/files/ecom-no-replace-A3LjFMKzsZsl-fn-3.jpg?v=1755845996" alt="bg-slider" width="2000" height="988" id="xG5ljhEV" style="--ecom-object-fit:cover;--ecom-object-fit-tablet:cover;--ecom-object-fit-mobile:cover;"></picture><div class="ecom-overlay"><span>overlay</span></div></div><div class="ecom-content-item__container ecom-transition-Bottom2Top"><div class="core__blocks" index="2"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-fko9964hqq" data-core-is="row"><div class="ecom-row ecom-core core__block ecom-ryuywuxgyi" data-id="ecom-ryuywuxgyi" style="z-index: inherit;"><div data-deep="2" class="core__row--columns"><div class="ecom-column ecom-core ecom-x63uhvrco4n"><div class="core__column--wrapper"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks" index="0"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-l5ppt08z52" data-core-is="block"><div class="ecom-row ecom-core core__block ecom-j8jp9jwoiiq" data-id="ecom-j8jp9jwoiiq" style="z-index: inherit;"><div data-deep="3" class="core__row--columns"><div class="ecom-column ecom-core ecom-8yunytq2udc"><div class="core__column--wrapper"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks" index="0"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-6i03779m4ih" data-core-is="block"><div class="ecom__element element__heading ecom-element ecom-html" data-stopdrag="true" deep="3"><h2 class="ecom__heading ecom-db">Form Meets&nbsp;<div>Function</div></h2></div></div> <div class="ecom-block ecom-core core__block ecom-rvenlfhyq6" data-core-is="block"><div class="ecom__element ecom-element element__text" data-stopdrag="" deep="3"><div class="text-content ecom-html has-drop-cap-view-framed">Smart, simple furniture crafted to elevate your space.</div></div></div> <div class="ecom-block ecom-core core__block ecom-rscvhiubvu7" data-core-is="block"><div class="ecom__element ecom-element-button ecom-button-default" deep="3"><a class="ecom__element--button ecom-flex ecom-fl_center ecom-al_center" href="#"><span class="ecom__element--button-icon-text">Browse The Collection</span><span class="ecom-button-icon ecom__element--button-icon"></span></a></div></div> </div></div></div></div> </div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> </div></div> </div></div></div></div> </div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> </div></div> </div></div></div></div></div></div></div><div class="ecom-swiper-navigation-position" style="display: none;"><button type="button" class="ecom-swiper-button ecom-swiper-button-prev" data-ecnav-id="ecom-6bubxvuv0w" style="--ecom-position: unset; --ecom-position__tablet: unset; --ecom-position__mobile: unset;"><svg xmlns="http: //www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></button><button type="button" class="ecom-swiper-button ecom-swiper-button-next" data-ecnav-id="ecom-6bubxvuv0w" style="--ecom-position: unset; --ecom-position__tablet: unset; --ecom-position__mobile: unset;"><svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></button></div><div data-position="bottom_center" data-ecnav-id="ecom-6bubxvuv0w" class="ecom-swiper-pagination-position ecom-swiper-pagination"></div></div></div> </div></div></div> </div></div></div></div> </div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> </section><section class="ecom-row ecom-core ecom-section ecom-ffivodyabko" data-id="ecom-ffivodyabko" style="z-index: inherit;"><div data-deep="1" class="core__row--columns core__row--full"><div class="ecom-column ecom-core ecom-4hi8rrn4lao"><div class="core__column--wrapper"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks" index="0"><div class="core__blocks--body"><div class="ecom-animation ecom-block ecom-core core__block elmspace ecom-k5s8dlfper" data-core-is="block"><div class="ecom__element ecom-element__banner" deep="1"><div class="ecom-banner__hzoom ecom-masonry__nt_promotion ecom-image-default"><a href="https://droplawi.com/collections/mix-pack-casacos" class="ecom-banner__picture-link"><picture class="ecom-banner__image-picture"><source media="(max-width: 1024px)" srcset="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/Untitled_design_-_1_2_800x800_5e0ccf16-f373-400e-99d0-eb7a3222590d.jpg?v=1758193808"><img loading="lazy" fetchpriority="low" src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/esta_casacos_834e4466-7970-4f9e-9dc8-10344755ef33.jpg?v=1751463633" name="esta_casacos_834e4466-7970-4f9e-9dc8-10344755ef33" ext="jpg" thumbnail="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/esta_casacos_834e4466-7970-4f9e-9dc8-10344755ef33.jpg?v=1751463633" alt="cat-s3" width="800" height="800" id="7NNsODO5" thumbnail__tablet="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/Untitled_design_-_1_2_800x800_5e0ccf16-f373-400e-99d0-eb7a3222590d.jpg?v=1758193808" style=""></picture></a><div class="ecom-masonry__nt_promotion_html ecom-t__0 ecom-l__0 ecom-r__0 ecom-b__0 ecom-flex ecom-w__100" style="align-items: flex-end;"><div class="ecom-banner_wrap_html_block ecom-flex ecom-column ecom-horizontal-center"><h3 class="ecom-banner__heading"><br></h3><div class="ecom-banner__content"><br></div><a class="ecom-banner__button ecom__element--button pe_auto ecom-flex ecom-fl_center ecom-al_center" href="#"><span class="ecom-banner__button--text">CASACOS</span><span class="ecom-button-icon ecom-elements__banner-button-icon ecom-flex"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor"><path d="M335 408.1C330.3 404.3 328 398.2 328 392s2.344-12.28 7.031-16.97L430.1 280H24C10.75 280 0 269.2 0 255.1C0 242.7 10.75 232 24 232h406.1l-95.03-95.03c-9.375-9.375-9.375-24.56 0-33.94s24.56-9.375 33.94 0l136 136c9.375 9.375 9.375 24.56 0 33.94l-136 136C359.6 418.3 344.4 418.3 335 408.1z"></path></svg></span></a></div></div></div></div></div> </div></div></div></div> <div class="ecom-column ecom-core ecom-9j91jyghlo"><div class="core__column--wrapper"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks" index="1"><div class="core__blocks--body"><div class="ecom-animation ecom-block ecom-core core__block elmspace ecom-zpkr0dgw1uc" data-core-is="block"><div class="ecom__element ecom-element__banner" deep="1"><div class="ecom-banner__hzoom ecom-masonry__nt_promotion ecom-image-default"><a href="https://droplawi.com/collections/mix-pack-casacos" class="ecom-banner__picture-link"><picture class="ecom-banner__image-picture"><source media="(max-width: 1024px)" srcset="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/Design_sem_nome_12_7f98d0ec-e1ec-4b7a-872a-89c28aa7bdd3.png?v=1758194375"><img loading="lazy" fetchpriority="low" src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/esta_casacos_834e4466-7970-4f9e-9dc8-10344755ef33.jpg?v=1751463633" name="esta_casacos_834e4466-7970-4f9e-9dc8-10344755ef33" ext="jpg" thumbnail="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/esta_casacos_834e4466-7970-4f9e-9dc8-10344755ef33.jpg?v=1751463633" alt="cat-s3" width="475" height="475" id="7NNsODO5" thumbnail__tablet="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/Design_sem_nome_12_7f98d0ec-e1ec-4b7a-872a-89c28aa7bdd3.png?v=1758194375" style=""></picture></a><div class="ecom-masonry__nt_promotion_html ecom-t__0 ecom-l__0 ecom-r__0 ecom-b__0 ecom-flex ecom-w__100" style="align-items: flex-end;"><div class="ecom-banner_wrap_html_block ecom-flex ecom-column ecom-horizontal-center"><h3 class="ecom-banner__heading"><br></h3><div class="ecom-banner__content"><br></div><a class="ecom-banner__button ecom__element--button pe_auto ecom-flex ecom-fl_center ecom-al_center" href="#"><span class="ecom-banner__button--text">KILOS</span><span class="ecom-button-icon ecom-elements__banner-button-icon ecom-flex"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor"><path d="M335 408.1C330.3 404.3 328 398.2 328 392s2.344-12.28 7.031-16.97L430.1 280H24C10.75 280 0 269.2 0 255.1C0 242.7 10.75 232 24 232h406.1l-95.03-95.03c-9.375-9.375-9.375-24.56 0-33.94s24.56-9.375 33.94 0l136 136c9.375 9.375 9.375 24.56 0 33.94l-136 136C359.6 418.3 344.4 418.3 335 408.1z"></path></svg></span></a></div></div></div></div></div> </div></div></div></div> <div class="ecom-column ecom-core ecom-t8ihdtzgt1"><div class="core__column--wrapper"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks" index="2"><div class="core__blocks--body"><div class="ecom-animation ecom-block ecom-core core__block elmspace ecom-6o4h9z19ty6" data-core-is="block"><div class="ecom__element ecom-element__banner" deep="1"><div class="ecom-banner__hzoom ecom-masonry__nt_promotion ecom-image-default"><a href="https://droplawi.com/collections/mix-pack-casacos" class="ecom-banner__picture-link"><picture class="ecom-banner__image-picture"><source media="(max-width: 1024px)" srcset="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/combo_III.png?v=1751318501"><img loading="lazy" fetchpriority="low" src="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/esta_casacos_834e4466-7970-4f9e-9dc8-10344755ef33.jpg?v=1751463633" name="esta_casacos_834e4466-7970-4f9e-9dc8-10344755ef33" ext="jpg" thumbnail="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/esta_casacos_834e4466-7970-4f9e-9dc8-10344755ef33.jpg?v=1751463633" alt="cat-s3" width="1080" height="1080" id="7NNsODO5" thumbnail__tablet="https://cdn.shopify.com/s/files/1/0910/9520/4214/files/combo_III.png?v=1751318501" style=""></picture></a><div class="ecom-masonry__nt_promotion_html ecom-t__0 ecom-l__0 ecom-r__0 ecom-b__0 ecom-flex ecom-w__100" style="align-items: flex-end;"><div class="ecom-banner_wrap_html_block ecom-flex ecom-column ecom-horizontal-center"><h3 class="ecom-banner__heading"><br></h3><div class="ecom-banner__content"><br></div><a class="ecom-banner__button ecom__element--button pe_auto ecom-flex ecom-fl_center ecom-al_center" href="#"><span class="ecom-banner__button--text">COMBOS</span><span class="ecom-button-icon ecom-elements__banner-button-icon ecom-flex"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor"><path d="M335 408.1C330.3 404.3 328 398.2 328 392s2.344-12.28 7.031-16.97L430.1 280H24C10.75 280 0 269.2 0 255.1C0 242.7 10.75 232 24 232h406.1l-95.03-95.03c-9.375-9.375-9.375-24.56 0-33.94s24.56-9.375 33.94 0l136 136c9.375 9.375 9.375 24.56 0 33.94l-136 136C359.6 418.3 344.4 418.3 335 408.1z"></path></svg></span></a></div></div></div></div></div> </div></div></div></div> </div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> </section><section class="ecom-row ecom-core ecom-section ecom-sl0ujosp02j" data-id="ecom-sl0ujosp02j" style="z-index: inherit;"><div data-deep="1" class="core__row--columns"><div class="ecom-column ecom-core ecom-i5gb5odp0u"><div class="core__column--wrapper"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks" index="0"></div></div></div> </div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> </section><section class="ecom-row ecom-core ecom-section ecom-8c35h43bywd" data-id="ecom-8c35h43bywd" style="z-index: inherit;"><div data-deep="1" class="core__row--columns core__row--full"><div class="ecom-column ecom-core ecom-5xgad9laox7"><div class="core__column--wrapper"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks" index="0"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-2fszaeepx9t" data-core-is="block"><div class="ecom__element ecom-lookbook__product ecom__element-lookbook ecom-flex ecom-items-start ecom-pr" data-trigger="hover" style="display: flex; flex-wrap: wrap;"><div class="ecom-image element__image-lookbook ecom-flex ecom-column" style="position: relative; flex: 0 0 0%;"><picture class="element__image-lookbook--img ecom-image-default"><img loading="lazy" fetchpriority="low" src="https://cdn.shopify.com/s/files/1/0726/1221/7115/files/ecom-no-replace-azizqIxa2nbn-stl.png?v=1756106064" alt="ecom-no-replace-azizqIxa2nbn-stl" style=""></picture><div class="goto-element"><div class="element__image-lookbook--text ecom-pa ecom-flex ecom-fl_center ecom-al_center element__image-lookbook--btn-nolabel" data-handle="ake-coffee-table" data-limit="20" data-stopdrag="" style="left: 45%; top: 57%;"><div class="element__image-lookbook--btn ecom-flex ecom-fl_center ecom-al_center goto-element-item ecom-box-active" data-index="0"><div class="element__image-lookbook--btn-icon ecom-flex ecom-fl_center ecom-al_center"><svg width="9" height="9" viewBox="0 0 9 9" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="4.5" cy="4.5" r="4.5"></circle></svg></div></div></div><div class="element__image-lookbook--text ecom-pa ecom-flex ecom-fl_center ecom-al_center element__image-lookbook--btn-nolabel" data-handle="midnight-bookshelf" data-limit="20" data-stopdrag="" style="left: 63%; top: 27%;"><div class="element__image-lookbook--btn ecom-flex ecom-fl_center ecom-al_center goto-element-item" data-index="1"><div class="element__image-lookbook--btn-icon ecom-flex ecom-fl_center ecom-al_center"><svg width="9" height="9" viewBox="0 0 9 9" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="4.5" cy="4.5" r="4.5"></circle></svg></div></div></div></div></div><div class="ecom-product-wrap ecom__element-slider ecom-flex ecom-column" style="flex: 0 0 0%;"><div class="ecom-product-slider ecom-lookbook-container ecom-swiper" data-option-swiper="{&quot;direction&quot;:&quot;horizontal&quot;,&quot;freeMode&quot;:false,&quot;breakpoints&quot;:{&quot;0&quot;:{},&quot;768&quot;:{},&quot;1025&quot;:{}},&quot;autoplay&quot;:{&quot;enabled&quot;:false,&quot;delay&quot;:0,&quot;pauseOnMouseEnter&quot;:false,&quot;disableOnInteraction&quot;:false,&quot;reverseDirection&quot;:false},&quot;speed&quot;:300,&quot;grabCursor&quot;:true,&quot;slideActiveClass&quot;:&quot;ecom-box-active&quot;,&quot;centeredSlides&quot;:false,&quot;watchOverflow&quot;:true,&quot;autoHeight&quot;:true,&quot;cubeEffect&quot;:{&quot;slideShadows&quot;:true,&quot;shadowOffset&quot;:20},&quot;creativeEffect&quot;:{},&quot;fadeEffect&quot;:{&quot;crossFade&quot;:true},&quot;pagination&quot;:{&quot;el&quot;:&quot;.ecom-swiper-pagination&quot;,&quot;type&quot;:&quot;bullets&quot;,&quot;clickable&quot;:true},&quot;navigation&quot;:{&quot;nextEl&quot;:&quot;.ecom-swiper-button-next&quot;,&quot;prevEl&quot;:&quot;.ecom-swiper-button-prev&quot;}}" style="max-width: 100%;"><div class="ecom-swiper-wrapper">
+ {%- assign tmp_product = product -%}
+ {% assign productsDefault = collections.all.products %}
+ 
+ {% capture product_handles %} ake-coffee-table,midnight-bookshelf {% endcapture%}
+ {% assign products = product_handles | strip | split: ',' %}
+ {% for p in products %}
+ {% assign product = all_products[p]%}
+ <div class="ecom-product-item ecom-swiper-slide" data-product_handles="{{ product_handles }}" >
+ <div class="ecom-pr ecom-w__full ecom-lookbook__product-media">
+ <div class="ecom-lookbook__product-media-wrap">
+ <img srcset="
+ {%- if product.featured_media.width >= 533 -%}{{ product.featured_media | image_url: width: 533 }} 533w,{%- endif -%}
+ {%- if product.featured_media.width >= 720 -%}{{ product.featured_media | image_url: width: 720 }} 720w,{%- endif -%}
+ {%- if product.featured_media.width >= 940 -%}{{ product.featured_media | image_url: width: 940 }} 940w,{%- endif -%}
+ {%- if product.featured_media.width >= 1066 -%}{{ product.featured_media | image_url: width: 1066 }} 1066w{%- endif -%}"
+ src="{{ product.featured_media | image_url: width: 533 }}"
+ sizes="(min-width: 1100px) 535px, (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)"
+ alt="{{ product.featured_media.alt | escape }}"
+ loading='lazy'
+ class="ecom-lookbook__product-media-image ecom-w__full"
+ width="{{ product.featured_media.width }}"
+ height="{{ product.featured_media.height }}"
+ />
+ </div>
+ 
+ 
+ {%- if product.has_only_default_variant -%}
+ {%- if product.compare_at_price_min > product.price_min -%}
+ <div class="ecom-lookbook__product-price--bage-sale">
+ {%- assign sale = product.compare_at_price_min | minus: product.price_min | times: 100.0 | divided_by: product.compare_at_price_min | round -%}
+ <span>
+ -{{sale}}%
+ </span>
+ </div>
+ {%- endif -%}
+ {%- else -%}
+ {%- if product.compare_at_price_min > product.price_min -%}
+ <div class="ecom-lookbook__product-price--bage-sale">
+ {%- assign sale = product.compare_at_price_min | minus: product.price_min | times: 100.0 | divided_by: product.compare_at_price_min | round -%}
+ <span>
+ -{{sale}}%
+ </span>
+ </div>
+ {%- endif -%}
+ {%- endif -%}
+ 
+ 
+ 
+ {%- assign quickview_app = shop.metafields.ecomposer.app_quickview.value -%}
+ <div class="ecom-lookbook__product--quickview-wrapper" data-quickview-app="{{quickview_app}}">
+ {%- if quickview_app -%}
+ {% case quickview_app %}
+ {% when 'intergrated' %}
+ <a href="{{ product.url }}" title="{{ product.title }}" class="ecom-product-quickview" data-handle="{{product.handle}}" data-id="{{product.id}}">
+ <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+ <span class="ecom-product-quickview--text">
+ Quickview
+ </span>
+ </a>
+ {% endcase %}
+ {% endif %}
+ </div>
+ 
+ 
+ </div>
+ <div style="display: flex; flex-wrap: wrap;">
+ 
+ 
+ <h3 class="ecom-lookbook__product-title-tag">
+ <a
+ href="{{- product.url -}}"
+ title="{{product.title | escape }}"
+ target="_blank"
+ class="ecom-lookbook__product-item-information-title ecom-title-one-row"
+ >
+ {{ product.title }}
+ </a>
+ </h3>
+ 
+ 
+ 
+ <div class="ecom-lookbook__product-price-wrapper">
+ {%- if product.has_only_default_variant == false -%}
+ 
+ {% endif %}
+ <span class="ecom-lookbook__product-price{% if product.compare_at_price_min > product.price_min %} ecom-lookbook__product-price--sale{% endif %}">
+ {{ product.price_min| money }}
+ </span>
+ <span class="ecom-lookbook__product-price--regular ecom-lookbook__product--compare-at-price" {%- if product.compare_at_price == nil or product.compare_at_price <= product.price -%} style="display:none" {% endif %}>
+ {{ product.compare_at_price_min | money }}
+ </span>
+ </div>
+ 
+ 
+ {% capture badge_tags %}hot{% endcapture%}
+ {% liquid
+ assign badge_tags = badge_tags | strip | split: ','
+ %}
+ 
+ <div class="ecom-lookbook__product-badges">
+ {%- if product.available == false -%}
+ 
+ <span class="ecom-lookbook__product-badge--sold-out" aria-hidden="true">
+ Sold out
+ </span>
+ 
+ {%- elsif product.compare_at_price_min > product.price_min and product.available -%}
+ 
+ <span class="ecom-lookbook__product-badge--sale" aria-hidden="true">
+ Sale
+ </span>
+ 
+ {%- endif -%}
+ {% if badge_tags %}
+ <span class="ecom-lookbook__product-badge--custom">
+ {% for badge in badge_tags %}
+ {% if product.tags contains badge %}
+ <span class="ecom-lookbook__product-badge--custom-item ecom-lookbook__product-badge--{{ badge | handleize}}" aria-hidden="true">
+ {{ badge }}
+ </span>
+ {% endif %}
+ {% endfor %}
+ </span>
+ {% endif %}
+ </div>
+ 
+ 
+ </div>
+ </div>
+ {% endfor %}
+ 
+ {%- assign product = tmp_product -%}
+ </div></div><div class="ecom-swiper-navigation-position"><button class="ecom-swiper-button ecom-swiper-button-prev" style="position: absolute;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" fill="currentColor"><path d="M192 448c-8.188 0-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25L77.25 256l137.4 137.4c12.5 12.5 12.5 32.75 0 45.25C208.4 444.9 200.2 448 192 448z"></path></svg></button><button class="ecom-swiper-button ecom-swiper-button-next" style="position: absolute;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" fill="currentColor"><path d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z"></path></svg></button></div><div class="ecom-swiper-pagination-position ecom-swiper-pagination" style="display: none;"></div></div></div></div> </div></div></div></div> </div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> </section><section class="ecom-row ecom-core ecom-section ecom-nnwkpohavr" data-id="ecom-nnwkpohavr" style="z-index: inherit;"><div data-deep="1" class="core__row--columns core__row--full"><div class="ecom-column ecom-core ecom-ebb2acv5jja"><div class="core__column--wrapper"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks" index="0"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-eeqm5jvrwul" data-core-is="block"><div class="ecom__element element__heading ecom-element ecom-html" data-stopdrag="true" deep="1"><h3 class="ecom__heading ecom-db">SEGUE-NOS NO INSTAgram</h3></div></div> <div class="ecom-block ecom-core core__block elmspace ecom-z9kv2jcymff" data-core-is="row"><div class="ecom-row ecom-core core__block ecom-2tfjg6auz2y" data-id="ecom-2tfjg6auz2y" style="z-index: inherit;"><div data-deep="2" class="core__row--columns"><div class="ecom-column ecom-core ecom-aodv36hpksc"><div class="core__column--wrapper"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks" index="0"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-hg53auq3ia8" data-core-is="group"><div class="ecom-elements ecom-base-element ecom-elements-slider"><div class="ecom-core ecom-group core__block ecom-05i2ggdmki1o"> <div class="core__group--wrapper" data-r="" style=""><div class="ecom-slider--container"><div class="ecom-element ecom-slider slider__body ecom-swiper-container ecom-slider-not-custom-height" data-option-swiper="{&quot;direction&quot;:&quot;horizontal&quot;,&quot;freeMode&quot;:false,&quot;loop&quot;:true,&quot;breakpoints&quot;:{&quot;0&quot;:{&quot;slidesPerView&quot;:2,&quot;spaceBetween&quot;:0},&quot;768&quot;:{&quot;slidesPerView&quot;:4},&quot;1025&quot;:{&quot;slidesPerView&quot;:6,&quot;spaceBetween&quot;:0}},&quot;autoplay&quot;:{&quot;enabled&quot;:false,&quot;delay&quot;:6000,&quot;pauseOnMouseEnter&quot;:false,&quot;disableOnInteraction&quot;:false,&quot;reverseDirection&quot;:false},&quot;speed&quot;:500,&quot;effect&quot;:&quot;slide&quot;,&quot;grabCursor&quot;:true,&quot;slideActiveClass&quot;:&quot;ecom-box-active&quot;,&quot;centeredSlides&quot;:false,&quot;watchOverflow&quot;:true,&quot;autoHeight&quot;:true,&quot;cubeEffect&quot;:{&quot;slideShadows&quot;:true,&quot;shadowOffset&quot;:20},&quot;creativeEffect&quot;:{},&quot;fadeEffect&quot;:{&quot;crossFade&quot;:true},&quot;pagination&quot;:{&quot;el&quot;:&quot;.ecom-swiper-pagination&quot;,&quot;type&quot;:&quot;bullets&quot;,&quot;clickable&quot;:true},&quot;navigation&quot;:{&quot;nextEl&quot;:&quot;.ecom-swiper-button-next&quot;,&quot;prevEl&quot;:&quot;.ecom-swiper-button-prev&quot;},&quot;slidesPerGroup&quot;:1}"><div class="ecom-swiper-wrapper"><div class="ecom-swiper-slide"><div class="ecom-content-item"><div class="ecom-content-item__container ecom-transition-undefined"><div class="core__blocks" index="0"></div></div></div></div><div class="ecom-swiper-slide"><div class="ecom-content-item"><div class="ecom-content-item__container ecom-transition-undefined"><div class="core__blocks" index="1"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-6n56wcsw85" data-core-is="block"><div class="ecom-element ecom-base-image" deep="2"><figure><div class="ecom-container-image ecom-image-align" data-stopdrag=""><div data-stopdrag="" class="ecom-image-content-position ecom-image-default ecom-base-image-container-overlay" style=""><a href="#" class="ecom-image-picture-link ecom-image-picture ecom-base-image-container-overlay ecom-flex"><div class="ecom-base-image ecom-overlay" style=""></div><picture><img loading="lazy" fetchpriority="low" src="https://cdn.shopify.com/s/files/1/0726/1221/7115/files/ecom-no-replace-ELrCoq6USqimage-gl-1.jpg?v=1756171818" alt="ecom-no-replace-ELrCoq6USqimage-gl-1" width="960" height="960"></picture></a></div></div></figure></div></div> </div></div></div></div></div><div class="ecom-swiper-slide"><div class="ecom-content-item"><div class="ecom-content-item__container ecom-transition-undefined"><div class="core__blocks" index="2"></div></div></div></div><div class="ecom-swiper-slide"><div class="ecom-content-item"><div class="ecom-content-item__container ecom-transition-undefined"><div class="core__blocks" index="3"></div></div></div></div><div class="ecom-swiper-slide"><div class="ecom-content-item"><div class="ecom-content-item__container ecom-transition-undefined"><div class="core__blocks" index="4"></div></div></div></div><div class="ecom-swiper-slide"><div class="ecom-content-item"><div class="ecom-content-item__container ecom-transition-undefined"><div class="core__blocks" index="5"></div></div></div></div><div class="ecom-swiper-slide"><div class="ecom-content-item"><div class="ecom-content-item__container ecom-transition-undefined"><div class="core__blocks" index="6"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-2c2lxwqfc1o" data-core-is="block"><div class="ecom-element ecom-base-image" deep="2"><figure><div class="ecom-container-image ecom-image-align" data-stopdrag=""><div data-stopdrag="" class="ecom-image-content-position ecom-image-default ecom-base-image-container-overlay" style=""><a href="#" class="ecom-image-picture-link ecom-image-picture ecom-base-image-container-overlay ecom-flex"><div class="ecom-base-image ecom-overlay" style=""></div><picture><img loading="lazy" fetchpriority="low" src="https://cdn.shopify.com/s/files/1/0726/1221/7115/files/ecom-no-replace-SQCic00V0rimage-gl-7.jpg?v=1756173195" alt="ecom-no-replace-SQCic00V0rimage-gl-7" width="960" height="960"></picture></a></div></div></figure></div></div> </div></div></div></div></div></div></div><div class="ecom-swiper-navigation-position" data-position="center"><button type="button" class="ecom-swiper-button ecom-swiper-button-prev" data-ecnav-id="ecom-05i2ggdmki1o" style="--ecom-position: absolute; --ecom-position__tablet: absolute; --ecom-position__mobile: absolute;"><svg xmlns="http: //www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></button><button type="button" class="ecom-swiper-button ecom-swiper-button-next" data-ecnav-id="ecom-05i2ggdmki1o" style="--ecom-position: absolute; --ecom-position__tablet: absolute; --ecom-position__mobile: absolute;"><svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></button></div><div data-ecnav-id="ecom-05i2ggdmki1o" class="ecom-swiper-pagination-position ecom-swiper-pagination" style="display: none;"></div></div></div> </div></div></div> </div></div></div></div> </div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> </div></div> </div></div></div></div> </div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> </section>
+</div></div>
+{% schema %}
+{
+ "name": "catalogo",
+ "settings": [
+ {
+ "type": "header",
+ "content": "The section was generated by [Ecomposer](https:\/\/ecomposer.io).",
+ "info": "\n EComposer is a Visual Page Builder app on Shopify AppStore.\n It provides 100+ pre-built templates in library,\n so you can build unlimited pages that you can imagine with it.\n Please don't add Shopify sections to EComposer's page in the theme customize. If you do this, Shopify sections will be deleted when you republish your page in EComposer\n "
+ },
+ {
+ "type": "header",
+ "content": "[EDIT WITH EComposer APP \u2192](https:\/\/ecomposer.app\/shop?open_builder=1&page=list-collections&id=preview-template-list-collections&utm_source=theme-customize)",
+ "info": "(*You must install the app to start editing this section [Learn more](https:\/\/help.ecomposer.io\/docs\/getting-started\/installation\/))"
+ }
+ ],
+ "locales": {}
+}
+{% endschema %}

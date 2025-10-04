@@ -1,0 +1,440 @@
+<!-- Container central para todo o conteúdo -->
+<div style="max-width: 1200px; margin: 0 auto; padding: 40px 15px; font-family: sans-serif;">
+  <div style="display: flex; flex-wrap: wrap; gap: 40px; justify-content: space-between;">
+    <div class="product-flex-wrapper" style="display: flex; flex-wrap: wrap; gap: 40px; justify-content: space-between;">
+
+    <!-- Coluna Esquerda: Imagem principal + navegação -->
+    <div style="flex: 1 1 48%; max-width: 48%; position: relative;">
+<div style="position: relative; text-align: center;">
+  <button onclick="prevImage()" style="position: absolute; left: -30px; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 48px; color: #1e3a8a; cursor: pointer; z-index: 1;">‹</button>
+
+  <img id="main-product-image" src="imagem1.jpg" alt="Imagem do produto" />
+
+  <button onclick="nextImage()" style="position: absolute; right: -30px; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 48px; color: #1e3a8a; cursor: pointer; z-index: 1;">›</button>
+
+  <div id="image-counter">1 / 3</div>
+</div>
+
+
+
+<div style="display: flex; gap: 10px; margin-top: 10px; justify-content: center;">
+    {% assign image_index = 0 %}
+    {% for media in product.media %}
+      {% if media.media_type == "image" %}
+        <img class="thumbnail" src="{{ media | image_url: width: 800 }}" data-index="{{ image_index }}">
+        {% assign image_index = image_index | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+    <!-- Coluna Direita -->
+    <div style="flex: 1 1 48%; max-width: 48%; padding: 10px;">
+      <h1 style="font-size: 32px; font-weight: 700; margin-top: -20px; margin-bottom: 10px;">{{ product.title }}</h1>
+
+      <form method="post" action="/cart/add">
+        <input type="hidden" name="id" id="variant-id">
+        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+  <button type="button" id="grade-a-btn" onclick="filterByGrade('Grade A')" class="grade-button">Grade A</button>
+  <button type="button" id="grade-b-btn" onclick="filterByGrade('Grade B')" class="grade-button">Grade B</button>
+</div>
+<style>
+  .grade-button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 2px solid #1e3a8a;
+    background-color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+.grade-button.active {
+  background-color: #1e3a8a;   /* fundo azul */
+  color: white;
+  border: 4px solid #facc15;   /* borda amarela mais grossa */
+}
+
+
+</style>
+<script>
+  let originalOptions = [];  document.addEventListener('DOMContentLoaded', () => {   const select = document.getElementById('bundle-select');   originalOptions = Array.from(select.querySelectorAll('option')); });
+  function filterByGrade(grade) {
+  // Ativa botão visualmente
+  document.querySelectorAll('.grade-button').forEach(btn => btn.classList.remove('active'));
+  if (grade === 'Grade A') {
+    document.getElementById('grade-a-btn').classList.add('active');
+  } else if (grade === 'Grade B') {
+    document.getElementById('grade-b-btn').classList.add('active');
+  }
+
+  const select = document.getElementById('bundle-select');
+  select.innerHTML = ""; // limpa tudo
+
+  const filtered = originalOptions.filter(opt => opt.dataset.grade === grade);
+
+  if (filtered.length > 0) {
+    filtered.forEach(opt => select.appendChild(opt.cloneNode(true)));
+    select.selectedIndex = 0;
+    select.dispatchEvent(new Event('change'));
+  } else {
+    const emptyOption = document.createElement('option');
+    emptyOption.textContent = 'Sem opções disponíveis';
+    emptyOption.disabled = true;
+    select.appendChild(emptyOption);
+
+    document.getElementById('bundle-price').textContent = "€0.00";
+    document.getElementById('variant-id').value = "";
+  }
+}
+
+
+</script>
+
+
+
+
+
+        <label for="bundle-select" style="font-weight: bold;">Escolher quantidade:</label><br>
+     <select id="bundle-select" style="width: 100%; padding: 18px; font-size: 20px; margin: 15px 0; border-radius: 6px; border: 1px solid #ccc;">
+  {% for variant in product.variants %}
+    {% assign qtd = variant.title | split: " / " | last | split: " " | first | plus: 0 %}
+    {% if qtd > 0 and variant.available %}
+      {% assign raw_grade = variant.title | split: " / " | first | strip %}
+      {% if raw_grade == "Grau A" %}
+        {% assign grade = "Grade A" %}
+      {% elsif raw_grade == "Grau B" %}
+        {% assign grade = "Grade B" %}
+      {% else %}
+        {% assign grade = raw_grade %}
+      {% endif %}
+      
+      {% assign preco_unitario = variant.price | divided_by: qtd %}
+      <option 
+        value="{{ qtd }}" 
+        data-price="{{ preco_unitario | divided_by: 100.0 }}" 
+        data-variant="{{ variant.id }}"
+        data-grade="{{ grade }}">
+        {{ variant.title }} – €{{ preco_unitario | divided_by: 100.0 | round: 2 }} / unidade
+      </option>
+    {% endif %}
+  {% endfor %}
+</select>
+
+
+
+
+
+
+        <p style="font-size: 24px; font-weight: bold;">Total: <span id="bundle-price">€0.00</span></p>
+
+        <button type="submit" style="background-color: #facc15; color: #000; padding: 18px 32px; font-size: 18px; border-radius: 12px; font-weight: bold; text-transform: uppercase; width: 100%; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+          Adicionar ao carrinho
+        </button>
+      </form>
+
+      <ul style="list-style: none; padding-left: 0; font-size: 16px; line-height: 1.6; margin-top: 20px;">
+        <li>✅ Peças revisadas 1 a 1 pelos nossos especialistas</li>
+        <li>✅ Ganhe até 150% por peça</li>
+        <li>✅ Ideal para revenda na Vinted</li>
+        <li>✅ Envio rápido em toda Europa</li>
+      </ul>
+
+      <!-- Acordeão -->
+      <div style="margin-top: 30px;">
+        {% assign sections = 
+          "📦 DESCRIÇÃO DO PRODUTO:Polos Tommy Hilfiger vintage, com o clássico estilo americano e detalhes icónicos da marca. Seleção variada em cores e tamanhos.|🚚 ENTREGA:Entrega rápida, até 7 dias úteis nas suas mãos.|🧥 ARTIGOS: Oferecemos produtos em Grau A, onde os itens estão em perfeitas condições e Grau B, artigos que podem apresentar pequenas imperfeições como uma ligeira mancha ou um pequeno buraco.|ℹ️ INFORMAÇÕES ADICIONAIS:Imagens são ilustrativas dos nossos produtos."
+          | split: "|" %} 
+        {% for section in sections %}
+          {% assign pair = section | split: ":" %}
+          <div class="accordion">
+            <div class="accordion-title">
+              <span>{{ pair[0] }}</span>
+              <span class="accordion-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20"><path d="M7 10l5 5 5-5z"/></svg>
+              </span>
+            </div>
+            <div class="accordion-content">
+              {{ pair[1] }}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Secção Vinted Academy -->
+  <div style="width: 100%; background-color: #fef3c7; padding: 40px; border-radius: 16px; margin-top: 40px;">
+    <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
+      <span style="background-color: #fde047; color: #000; padding: 6px 16px; border-radius: 9999px; font-weight: bold; font-size: 14px;">🚀 3X SUAS VENDAS NA VINTED</span>
+      <span style="background-color: #60a5fa; color: white; padding: 6px 16px; border-radius: 9999px; font-weight: bold; font-size: 14px;">🔥 100% GRÁTIS</span>
+    </div>
+
+    <h3 style="font-size: 22px; font-weight: bold; margin-bottom: 10px;">Torna-te num Vendedor Profissional Vinted GRATUITAMENTE e gere mais de €1.200 em menos de 30 dias.</h3>
+    <p style="font-size: 16px; margin-bottom: 20px;">
+      Com a compra de qualquer pacote de roupas do site, terás acesso gratuito ao treinamento da <strong>Vinted Academy 2.0</strong>.
+    </p>
+
+    <p style="font-size: 16px; margin-bottom: 10px;">Aprende a:</p>
+    <ul style="font-size: 16px; line-height: 1.6; padding-left: 20px;">
+      <li>✅ Otimiza o teu perfil na Vinted</li>
+      <li>✅ Comprar mercadorias - Fornecedores</li>
+      <li>✅ Encontra produtos vencedores</li>
+      <li>✅ Tira fotos vencedoras</li>
+      <li>✅ Escreve descrições vencedoras</li>
+      <li>✅ Estabelece preços vencedores</li>
+      <li>✅ <strong>BÔNUS:</strong> Aprende as Técnicas Secretas</li>
+    </ul>
+  </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+  const thumbnails = document.querySelectorAll('.thumbnail');
+  const mainImage = document.getElementById('main-product-image');
+  const imageCounter = document.getElementById('image-counter');
+
+  let currentIndex = 0;
+
+  function updateImage(index) {
+    currentIndex = index;
+    mainImage.src = thumbnails[index].src;
+    thumbnails.forEach((thumb, i) => {
+      thumb.classList.toggle('active', i === index);
+    });
+    imageCounter.textContent = `${index + 1} / ${thumbnails.length}`;
+  }
+
+  thumbnails.forEach((thumb, index) => {
+    thumb.addEventListener('click', () => updateImage(index));
+  });
+
+  function prevImage() {
+    const newIndex = (currentIndex - 1 + thumbnails.length) % thumbnails.length;
+    updateImage(newIndex);
+  }
+
+  function nextImage() {
+    const newIndex = (currentIndex + 1) % thumbnails.length;
+    updateImage(newIndex);
+  }
+
+  updateImage(0);
+
+  // Acordeão
+  document.querySelectorAll('.accordion').forEach(accordion => {
+    accordion.addEventListener('click', function () {
+      const content = this.querySelector('.accordion-content');
+      const icon = this.querySelector('.accordion-icon svg');
+      if (this.classList.contains('open')) {
+        this.classList.remove('open');
+        content.style.maxHeight = null;
+        icon.style.transform = 'rotate(0deg)';
+      } else {
+        this.classList.add('open');
+        content.style.maxHeight = content.scrollHeight + "px";
+        icon.style.transform = 'rotate(180deg)';
+      }
+    });
+  });
+
+  // Atualizar preço do bundle
+  const bundleSelect = document.getElementById('bundle-select');
+  const bundlePrice = document.getElementById('bundle-price');
+  const variantId = document.getElementById('variant-id');
+
+  if (bundleSelect) {
+    const updatePrice = () => {
+      const selected = bundleSelect.options[bundleSelect.selectedIndex];
+      const quantity = parseInt(selected.value);
+      const pricePerUnit = parseFloat(selected.dataset.price);
+      const total = pricePerUnit * quantity;
+      bundlePrice.textContent = `€${total.toFixed(2)}`;
+      variantId.value = selected.dataset.variant;
+    };
+
+    bundleSelect.addEventListener('change', updatePrice);
+    updatePrice();
+  }
+  // Swipe mobile
+let touchStartX = 0;
+let touchEndX = 0;
+
+mainImage.addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+});
+
+mainImage.addEventListener('touchend', (e) => {
+  touchEndX = e.changedTouches[0].screenX;
+  handleGesture();
+});
+
+function handleGesture() {
+  if (touchEndX < touchStartX - 50) nextImage();
+  if (touchEndX > touchStartX + 50) prevImage();
+}
+
+// Zoom modal
+const zoomModal = document.createElement('div');
+zoomModal.style.position = 'fixed';
+zoomModal.style.top = 0;
+zoomModal.style.left = 0;
+zoomModal.style.width = '100vw';
+zoomModal.style.height = '100vh';
+zoomModal.style.background = 'rgba(0, 0, 0, 0.85)';
+zoomModal.style.display = 'none';
+zoomModal.style.justifyContent = 'center';
+zoomModal.style.alignItems = 'center';
+zoomModal.style.zIndex = 1000;
+zoomModal.innerHTML = `<img src="" id="zoom-image" style="max-width: 90%; max-height: 90%; border-radius: 12px;">`;
+document.body.appendChild(zoomModal);
+
+mainImage.addEventListener('click', () => {
+  const zoomImg = document.getElementById('zoom-image');
+  zoomImg.src = mainImage.src;
+  zoomModal.style.display = 'flex';
+});
+
+zoomModal.addEventListener('click', () => {
+  zoomModal.style.display = 'none';
+});
+
+</script>
+
+<!-- Estilos -->
+<style>
+  .thumbnail {
+    width: 70px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border: 2px solid #1e3a8a;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: border 0.2s ease;
+  }
+
+  .thumbnail.active {
+    border: 4px solid #1e3a8a;
+  }
+
+  .accordion {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-top: 20px;
+    background-color: #fafafa;
+    cursor: pointer;
+    padding: 15px 20px;
+    transition: background-color 0.2s ease;
+  }
+
+  .accordion.open {
+    background-color: #fffde0;
+    border-color: #facc15;
+  }
+
+  .accordion-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    font-size: 17px;
+  }
+
+  .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    font-size: 16px;
+    line-height: 1.6;
+    padding-left: 5px;
+  }
+
+  .accordion-icon svg {
+    transition: transform 0.3s ease;
+    fill: black;
+  }
+
+  @media (max-width: 768px) {
+    div[style*="display: flex; flex-wrap: wrap;"] > div {
+      flex: 1 1 100% !important;
+      max-width: 100% !important;
+    }
+  }
+  #main-product-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 4px solid #1e3a8a;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+/* Em telas grandes, reduz um pouco o tamanho da imagem */
+@media (min-width: 1024px) {
+  #main-product-image {
+    max-width: 85%;
+    margin: 0 auto;
+  }
+}
+#image-counter {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* No mobile, mostrar abaixo da imagem normalmente */
+@media (max-width: 768px) {
+  #image-counter {
+    position: static;
+    background: none;
+    padding: 0;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+}
+  #image-counter {
+  position: absolute;
+  bottom: 10px;
+  right: 12px;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  z-index: 10;
+}
+
+/* No mobile, volta para o estilo antigo */
+@media (max-width: 768px) {
+  #image-counter {
+    position: static;
+    background: none;
+    padding: 0;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+}
+
+
+</style>
+<style>
+@media (max-width: 1024px) {
+  /* Alinha todo o conteúdo no centro */
+  .product-flex-wrapper {
+    justify-content: center !important;
+  }
+
+  /* Faz as colunas ficarem em bloco, uma em cima da outra */
+  .product-flex-wrapper > div {
+    max-width: 100% !important;
+    flex: 1 1 100% !important;
+  }
+}
+</style>                     
