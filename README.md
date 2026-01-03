@@ -15,4 +15,4 @@ A full-stack website developed for Shopify, focusing on enhancing the user exper
 
 ## Role
 - Collaborated with the team to translate business requirements into technical solutions
-- Focused on improving website usability and functionality
+- Focused on implementing website usability and functionality
