@@ -1,21 +1,37 @@
 # Droplawi
 
-A full-stack website developed for Shopify, designed to enhance user experience and overall site functionality.
+A full-stack e-commerce website built for Shopify, focused on improving user experience, performance, and overall platform functionality.
+
+---
 
 ## Features Implemented
 
-- Developed and maintained **frontend and backend components** of the website  
-- Ensured **responsive design** across all devices  
-- Created **user-friendly interfaces** and interactive elements  
-- Integrated **secure backend functionality** for user accounts and data handling  
+- Development and maintenance of both frontend and backend components  
+- Implementation of responsive design across all devices  
+- Creation of user-friendly interfaces and interactive elements  
+- Integration of secure backend functionality for user accounts and data handling  
+
+---
 
 ## Features Managed by Shopify
 
-- **Payment page** and checkout flow  
-- **Product "Continue Shopping" page**  
-- **Automated email notifications** to customers for signup, abandoned carts, and order confirmations  
+- Payment processing and checkout flow  
+- Product "Continue Shopping" page  
+- Automated email notifications for:
+  - User registration  
+  - Abandoned carts  
+  - Order confirmations  
 
-## Role
+---
+
+## Role & Responsibilities
 
 - Collaborated with the team to translate business requirements into technical solutions  
-- Focused on implementing **website usability, functionality, and performance improvements**
+- Focused on improving usability, functionality, and performance of the platform  
+- Contributed to both implementation and optimization of core website features  
+
+---
+
+## Note
+
+This project was developed as a real-world commercial platform and is currently functional at Droplawi (https://droplawi.com/).
